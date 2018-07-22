@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="3"
-        android:orientation="vertical"></LinearLayout>
+        android:orientation="vertical">
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,6 +28,7 @@
             android:text="I      D" />
 
         <EditText
+            android:id="@+id/input_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="5"
@@ -45,6 +47,7 @@
             android:text="PASS" />
 
         <EditText
+            android:id="@+id/input_pass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="5"
@@ -59,6 +62,7 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/login_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
