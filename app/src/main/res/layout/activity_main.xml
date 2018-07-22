@@ -61,13 +61,25 @@
         android:layout_weight="2"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/login_btn"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="LOGIN" />
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/signin_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="LOGIN" />
+
+            <Button
+                android:id="@+id/signup_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SIGNUP" />
+        </LinearLayout>
 
     </LinearLayout>
 
