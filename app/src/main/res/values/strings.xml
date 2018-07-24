@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">NFC_CHECK</string>
+
+    <string name="app_name">췤</string>
+
+
+    <!-- TimeTable Layout -->
+    <string name="week_mon">MON</string>
+    <string name="week_tue">TUE</string>
+    <string name="week_wed">WED</string>
+    <string name="week_thu">THU</string>
+    <string name="week_fri">FRI</string>
+    <string name="week_sat">SAT</string>
 </resources>
