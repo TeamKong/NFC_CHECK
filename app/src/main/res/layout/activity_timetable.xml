@@ -18,624 +18,274 @@
             android:layout_margin="8dp"
             android:background="#999999"
             android:padding="1dp"
-            android:stretchColumns="*"
+            android:stretchColumns="1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <!--  Week Row  -->
-            <TableRow android:background="#999999">
+            <TableRow>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:text="@string/week_mon"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView"
+                    android:text="@string/week_mon"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:text="@string/week_tue"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView"
+                    android:text="@string/week_tue" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:text="@string/week_wed"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView"
+                    android:text="@string/week_wed" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:text="@string/week_thu"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView"
+                    android:text="@string/week_thu" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:text="@string/week_fri"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView"
+                    android:text="@string/week_fri" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:text="@string/week_sat"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView"
+                    android:text="@string/week_sat" />
             </TableRow>
 
             <!--  9 O'Clock Row  -->
             <TableRow>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="right"
-                    android:text="9"
-                    android:textSize="20dp" />
+                    style="@style/Clock_CustomTextView"
+                    android:text="9"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView"/>
             </TableRow>
 
             <!--  10 O'Clock Row  -->
             <TableRow>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="right"
-                    android:text="10"
-                    android:textSize="20dp" />
+                    style="@style/Clock_CustomTextView"
+                    android:text="10"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView"/>
             </TableRow>
 
             <!--  11 O'Clock Row  -->
             <TableRow>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="right"
-                    android:text="11"
-                    android:textSize="20dp" />
+                    style="@style/Clock_CustomTextView"
+                    android:text="11" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
             </TableRow>
 
             <!--  12 O'Clock Row  -->
             <TableRow>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="right"
-                    android:text="12"
-                    android:textSize="20dp" />
+                    style="@style/Clock_CustomTextView"
+                    android:text="12"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView"/>
             </TableRow>
 
             <!--  13 O'Clock Row  -->
             <TableRow>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="right"
-                    android:text="13"
-                    android:textSize="20dp" />
+                    style="@style/Clock_CustomTextView"
+                    android:text="13" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
             </TableRow>
 
             <!--  14 O'Clock Row  -->
             <TableRow>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="right"
-                    android:text="14"
-                    android:textSize="20dp" />
+                    style="@style/Clock_CustomTextView"
+                    android:text="14" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
             </TableRow>
 
             <!--  15 O'Clock Row  -->
             <TableRow>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="right"
-                    android:text="15"
-                    android:textSize="20dp" />
+                    style="@style/Clock_CustomTextView"
+                    android:text="15" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
             </TableRow>
 
             <!--  16 O'Clock Row  -->
             <TableRow>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="right"
-                    android:text="16"
-                    android:textSize="20dp" />
+                    style="@style/Clock_CustomTextView"
+                    android:text="16" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
             </TableRow>
 
             <!--  17 O'Clock Row  -->
             <TableRow>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="right"
-                    android:text="17"
-                    android:textSize="20dp" />
+                    style="@style/Clock_CustomTextView"
+                    android:text="17" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
             </TableRow>
 
 
@@ -643,305 +293,130 @@
             <TableRow>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="right"
-                    android:text="18"
-                    android:textSize="20dp" />
+                    style="@style/Clock_CustomTextView"
+                    android:text="18" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
             </TableRow>
 
             <!--  19 O'Clock Row  -->
             <TableRow>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="right"
-                    android:text="19"
-                    android:textSize="20dp" />
+                    style="@style/Clock_CustomTextView"
+                    android:text="19" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
             </TableRow>
 
             <!--  20 O'Clock Row  -->
             <TableRow>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="right"
-                    android:text="20"
-                    android:textSize="20dp" />
+                    style="@style/Clock_CustomTextView"
+                    android:text="20" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
             </TableRow>
 
             <!--  21 O'Clock Row  -->
             <TableRow>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="right"
-                    android:text="21"
-                    android:textSize="20dp" />
+                    style="@style/Clock_CustomTextView"
+                    android:text="21" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
             </TableRow>
 
             <!--  22 O'Clock Row  -->
             <TableRow>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="right"
-                    android:text="22"
-                    android:textSize="20dp" />
+                    style="@style/Clock_CustomTextView"
+                    android:text="22" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:textSize="20dp" />
+                    style="@style/Custom_TextView" />
             </TableRow>
 
         </TableLayout>
