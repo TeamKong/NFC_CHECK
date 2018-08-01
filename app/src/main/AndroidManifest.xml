@@ -17,9 +17,19 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".BeaconActivity" />
+        <!--<activity android:name=".BeaconActivity" />-->
         <activity android:name=".SignupActivity" />
 
     </application>
+
+    <uses-sdk
+        android:maxSdkVersion="10"
+        android:targetSdkVersion="11"/>
+
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="false"/>
+
+    <uses-permission android:name="android.permission.NFC"/>
 
 </manifest>
