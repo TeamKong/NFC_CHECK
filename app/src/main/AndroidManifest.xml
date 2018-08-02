@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".NFC.NfcActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,8 +17,9 @@
             </intent-filter>
         </activity>
 
-        <!--<activity android:name=".BeaconActivity" />-->
         <activity android:name=".SignupActivity" />
+        <activity android:name=".NFC.NfcReadActivity"/>
+        <activity android:name=".MainActivity"/>
 
     </application>
 

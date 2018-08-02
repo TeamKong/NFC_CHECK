@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NFC_CHECK</string>
+    <string name="hello_nfc_please_touch_a_tag">hello ! Nfc Please touch a tag</string>
 </resources>

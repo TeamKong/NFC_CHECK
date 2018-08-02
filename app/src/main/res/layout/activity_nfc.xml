@@ -54,7 +54,12 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
-            android:text="NFC TAG CONTACT" />
+            android:text="@string/hello_nfc_please_touch_a_tag" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/readResult"
+            android:text="test"/>
     </LinearLayout>
 
 
