@@ -24,7 +24,7 @@
     </application>
 
     <uses-sdk
-        android:maxSdkVersion="10"
+        android:maxSdkVersion="15"
         android:targetSdkVersion="11"/>
 
     <uses-feature
