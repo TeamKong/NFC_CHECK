@@ -18,10 +18,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        input_id = (EditText) findViewById(R.id.input_id);
-        input_pass = (EditText) findViewById(R.id.input_pass);
-        signin_btn = (Button) findViewById(R.id.signin_btn);
-        signup_btn = (Button) findViewById(R.id.signup_btn);
+        input_id = findViewById(R.id.input_id);
+        input_pass = findViewById(R.id.input_pass);
+        signin_btn = findViewById(R.id.signin_btn);
+        signup_btn = findViewById(R.id.signup_btn);
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (view.getId()){
                     case R.id.signin_btn:
+                        Intent intent = new Intent(MainActivity.this, FirstMenuActivity.class);
+                        startActivity(intent);
                         // 로그인
                         break;
                     case R.id.signup_btn:

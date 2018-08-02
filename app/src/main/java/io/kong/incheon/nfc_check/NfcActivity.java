@@ -14,11 +14,6 @@ import android.widget.TextView;
 
 public class NfcActivity extends Activity{
 
-    //슬라이딩메뉴
-    Context context;
-    private View drawerView;
-    SlidingMenu slidingView;
-
     private NfcAdapter nfcAdapter;
     private PendingIntent pendingIntent;
     private static String tagNum=null;
@@ -29,15 +24,10 @@ public class NfcActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nfc);
 
-        tagDesc = (TextView) findViewById(R.id.tagDesc);
+        tagDesc = findViewById(R.id.tagDesc);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         Intent intent = new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        pendingIntent = pendingIntent.getActivity(this, 0, intent, 0);
-
-        //SlidingMenu
-        context = this;
-        drawerView = (View) findViewById(R.id.drawer);
-        slidingView = new SlidingMenu(context, drawerView);
+        pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
     }
 
