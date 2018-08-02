@@ -9,23 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NFC.NfcActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <activity android:name=".SignupActivity" />
-        <activity android:name=".NFC.NfcReadActivity"/>
         <activity android:name=".MainActivity"/>
 
     </application>
 
     <uses-sdk
-        android:maxSdkVersion="15"
-        android:targetSdkVersion="11"/>
+        android:maxSdkVersion="10"
+        android:targetSdkVersion="15"/>
 
     <uses-feature
         android:name="android.hardware.nfc"

@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -50,7 +57,7 @@
         android:layout_weight="2">
 
         <TextView
-            android:id="@+id/nfc_txt"
+            android:id="@+id/tagDesc"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
@@ -61,7 +68,7 @@
             android:id="@+id/readResult"
             android:text="test"/>
     </LinearLayout>
-
-
-
 </LinearLayout>
+
+    <include layout="@layout/activity_slidingmenu" />
+</android.support.v4.widget.DrawerLayout>
