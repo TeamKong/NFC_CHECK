@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import io.kong.incheon.nfc_check.NfcActivity;
 import io.kong.incheon.nfc_check.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,10 +20,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        input_id = findViewById(R.id.input_id);
-        input_pass = findViewById(R.id.input_pass);
-        signin_btn = findViewById(R.id.signin_btn);
-        signup_btn = findViewById(R.id.signup_btn);
+        input_id = (EditText) findViewById(R.id.input_id);
+        input_pass = (EditText) findViewById(R.id.input_pass);
+        signin_btn = (Button) findViewById(R.id.signin_btn);
+        signup_btn = (Button) findViewById(R.id.signup_btn);
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -44,5 +44,41 @@ public class MainActivity extends AppCompatActivity {
 
         signup_btn.setOnClickListener(listener);
         signin_btn.setOnClickListener(listener);
+    }
+
+    public static class FirstMenuActivity extends AppCompatActivity{
+        Button student_check;
+        Button schedule_list;
+        Button setting;
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_firstMenu);
+
+            student_check = (Button) findViewById(R.id.student_check);
+            schedule_list = (Button) findViewById(R.id.schedule_list);
+            setting = (Button) findViewById(R.id.setting);
+
+            View.OnClickListener listener = new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    switch (view.getId()){
+                        case R.id.student_check:
+                            Intent intent = new Intent(FirstMenuActivity.this, NfcActivity.class);
+                            startActivity(intent);
+                            break;
+    //                    case R.id.schedule_list:
+    //                        Intent intent2 = new Intent(FirstMenuActivity.this, NfcActivity.class);
+    //                        startActivity(intent2);
+    //                        break;
+                    }
+                }
+            };
+
+            student_check.setOnClickListener(listener);
+
+        }
     }
 }

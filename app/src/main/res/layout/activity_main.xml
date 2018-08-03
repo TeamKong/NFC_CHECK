@@ -4,14 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
-    tools:context=".activity.MainActivity">
-=======
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
     android:orientation="vertical"
-    tools:context=".MainActivity">
->>>>>>> 180802_NfcTagUI
+    tools:context=".activity.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
