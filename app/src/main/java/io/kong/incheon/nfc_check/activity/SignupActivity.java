@@ -1,4 +1,4 @@
-package io.kong.incheon.nfc_check;
+package io.kong.incheon.nfc_check.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import io.kong.incheon.nfc_check.R;
 
 public class SignupActivity extends AppCompatActivity {
 
