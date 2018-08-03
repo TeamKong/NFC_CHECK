@@ -1,4 +1,5 @@
 <resources>
+<<<<<<< HEAD
 
     <string name="app_name">췤</string>
 
@@ -10,4 +11,8 @@
     <string name="week_thu">THU</string>
     <string name="week_fri">FRI</string>
     <string name="week_sat">SAT</string>
+=======
+    <string name="app_name">NFC_CHECK</string>
+    <string name="hello_nfc_please_touch_a_tag">hello ! Nfc Please touch a tag</string>
+>>>>>>> 180802_NfcTagUI
 </resources>
