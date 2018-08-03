@@ -14,7 +14,7 @@ public class FirstMenuActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_firstMenu);
+        setContentView(R.layout.activity_firstmenu);
 
         student_check = findViewById(R.id.student_check);
         schedule_list = findViewById(R.id.schedule_list);

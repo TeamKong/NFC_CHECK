@@ -2,12 +2,10 @@ package io.kong.incheon.nfc_check;
 
 import android.app.Activity;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 //NFC 태그 값을 출력하는 코드입니다.
