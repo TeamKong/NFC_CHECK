@@ -50,8 +50,10 @@
         android:layout_weight="2">
 
         <Button
+            android:id="@+id/student_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:text="출 석 관 리"
             android:layout_weight="1"/>
 
         <Button

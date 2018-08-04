@@ -23,6 +23,9 @@
         <activity android:name=".FirstMenuActivity" />
         <activity android:name=".SignupActivity"/>
         <activity android:name=".NfcActivity"/>
+        <activity android:name=".ListActivity"/>
+        <!--팝업 액티비티-->
+        <activity android:name=".PopUpActivity" android:theme="@android:style/Theme.Dialog" />
 
 
     </application>

@@ -8,6 +8,7 @@ import android.widget.Button;
 
 public class FirstMenuActivity extends AppCompatActivity{
     Button student_check;
+    Button student_list;
     Button schedule_list;
     Button setting;
 
@@ -17,6 +18,7 @@ public class FirstMenuActivity extends AppCompatActivity{
         setContentView(R.layout.activity_firstmenu);
 
         student_check = findViewById(R.id.student_check);
+        student_list = findViewById(R.id.student_list);
         schedule_list = findViewById(R.id.schedule_list);
         setting = findViewById(R.id.setting);
 
@@ -29,6 +31,11 @@ public class FirstMenuActivity extends AppCompatActivity{
                         Intent intent = new Intent(FirstMenuActivity.this, NfcActivity.class);
                         startActivity(intent);
                         break;
+                    case R.id.student_list:
+                        Intent intent1 = new Intent(FirstMenuActivity.this, ListActivity.class);
+                        startActivity(intent1);
+                        break;
+
 //                    case R.id.schedule_list:
 //                        Intent intent2 = new Intent(FirstMenuActivity.this, NfcActivity.class);
 //                        startActivity(intent2);
@@ -38,6 +45,6 @@ public class FirstMenuActivity extends AppCompatActivity{
         };
 
         student_check.setOnClickListener(listener);
-
+        student_list.setOnClickListener(listener);
     }
 }
