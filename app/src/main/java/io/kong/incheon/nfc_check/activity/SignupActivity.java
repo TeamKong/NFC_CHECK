@@ -24,7 +24,6 @@ public class SignupActivity extends AppCompatActivity {
         spinner = (Spinner) findViewById(R.id.box_school);
         sAdapter = ArrayAdapter.createFromResource(this, R.array.question, android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(sAdapter);
-
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?>  parent, View view, int position, long id) {
