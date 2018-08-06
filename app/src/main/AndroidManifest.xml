@@ -11,22 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-<<<<<<< HEAD
-        <activity android:name=".activity.MainActivity"
-            tools:ignore="DuplicateActivity"/>
-        <activity android:name=".activity.TimeTableActivity">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".activity.TimeTableActivity"/>
         <activity android:name=".activity.SubjectActivity"/>
         <activity android:name=".activity.SignupActivity" />
-=======
-        <activity android:name=".MainActivity"
+        <activity android:name=".activity.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,14 +23,11 @@
         </activity>
 
 
-        <activity android:name=".FirstMenuActivity" />
-        <activity android:name=".SignupActivity"/>
-        <activity android:name=".NfcActivity"/>
-        <activity android:name=".ListActivity"/>
+        <activity android:name=".activity.FirstMenuActivity" />
+        <activity android:name=".activity.NfcActivity"/>
+        <activity android:name=".activity.ListActivity"/>
         <!--팝업 액티비티-->
-        <activity android:name=".PopUpActivity" android:theme="@android:style/Theme.Dialog" />
-
->>>>>>> 180802_NfcTagUI
+        <activity android:name=".activity.PopUpActivity" android:theme="@android:style/Theme.Dialog" />
 
     </application>
 

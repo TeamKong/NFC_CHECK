@@ -1,4 +1,4 @@
-package io.kong.incheon.nfc_check;
+package io.kong.incheon.nfc_check.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import io.kong.incheon.nfc_check.R;
 
 public class PopUpActivity extends Activity {
 
