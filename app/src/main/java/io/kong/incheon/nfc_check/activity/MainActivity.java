@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import io.kong.incheon.nfc_check.NfcActivity;
 import io.kong.incheon.nfc_check.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -54,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_firstMenu);
+            setContentView(R.layout.activity_firstmenu);
 
             student_check = (Button) findViewById(R.id.student_check);
             schedule_list = (Button) findViewById(R.id.schedule_list);
