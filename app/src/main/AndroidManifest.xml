@@ -10,7 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity"/>
+
+        <activity android:name=".activity.MainActivity"
+            tools:ignore="DuplicateActivity"/>
         <activity android:name=".activity.TimeTableActivity">
 
             <intent-filter>
@@ -20,10 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.SubjectActivity"/>
-
         <activity android:name=".activity.SignupActivity" />
-        <activity android:name=".activity.MainActivity"
-            tools:ignore="DuplicateActivity" />
 
     </application>
 

@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_firstMenu);
+            setContentView(R.layout.activity_firstmenu);
 
             student_check = (Button) findViewById(R.id.student_check);
             schedule_list = (Button) findViewById(R.id.schedule_list);
