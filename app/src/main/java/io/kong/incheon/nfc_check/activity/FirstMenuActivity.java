@@ -9,44 +9,45 @@ import android.widget.Button;
 import io.kong.incheon.nfc_check.R;
 
 public class FirstMenuActivity extends AppCompatActivity{
-    Button student_check;
-    Button student_list;
-    Button schedule_list;
-    Button setting;
+    Button btnCheck;
+    Button btnCheckList;
+    Button btnTimetable;
+    Button btnSetting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_firstmenu);
 
-        student_check = (Button) findViewById(R.id.student_check);
-        student_list = (Button) findViewById(R.id.student_list);
-        schedule_list = (Button) findViewById(R.id.schedule_list);
-        setting = (Button) findViewById(R.id.setting);
+        btnCheck = (Button) findViewById(R.id.btnCheck);
+        btnCheckList = (Button) findViewById(R.id.btnCheckList);
+        btnTimetable = (Button) findViewById(R.id.btnTimetable);
+        btnSetting = (Button) findViewById(R.id.btnSetting);
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 switch (view.getId()){
-                    case R.id.student_check:
-                        Intent intent = new Intent(FirstMenuActivity.this, NfcActivity.class);
-                        startActivity(intent);
+                    case R.id.btnCheck:
+                        Intent intent_check = new Intent(FirstMenuActivity.this, NfcActivity.class);
+                        startActivity(intent_check);
                         break;
-                    case R.id.student_list:
-                        Intent intent1 = new Intent(FirstMenuActivity.this, ListActivity.class);
-                        startActivity(intent1);
+                    case R.id.btnCheckList:
+                        Intent intent_list = new Intent(FirstMenuActivity.this, ListActivity.class);
+                        startActivity(intent_list);
                         break;
 
-//                    case R.id.schedule_list:
-//                        Intent intent2 = new Intent(FirstMenuActivity.this, NfcActivity.class);
-//                        startActivity(intent2);
-//                        break;
+                    case R.id.btnTimetable:
+                        Intent intent_timetable = new Intent(FirstMenuActivity.this, TimeTableActivity.class);
+                        startActivity(intent_timetable);
+                        break;
                 }
             }
         };
 
-        student_check.setOnClickListener(listener);
-        student_list.setOnClickListener(listener);
+        btnCheck.setOnClickListener(listener);
+        btnCheckList.setOnClickListener(listener);
+        btnTimetable.setOnClickListener(listener);
     }
 }
