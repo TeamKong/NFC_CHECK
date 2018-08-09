@@ -15,19 +15,26 @@ public class TimeTableActivity extends AppCompatActivity {
 
     FloatingActionButton btnFAB;
 
+    int monResID[] = new int[15];
+    int tueResID[] = new int[15];
+    int wedResID[] = new int[15];
+    int thuResID[] = new int[15];
+    int friResID[] = new int[15];
+    int satResID[] = new int[15];
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timetable);
 
         for (int i = 1; i <= 14; i++) {
-            int monResID = getResources().getIdentifier("mon" + i, "id", "io.kong.incheon.nfc_check");
-            int tueResID = getResources().getIdentifier("tue" + i, "id", "io.kong.incheon.nfc_check");
-            int wedResID = getResources().getIdentifier("wed" + i, "id", "io.kong.incheon.nfc_check");
-            int thuResID = getResources().getIdentifier("thu" + i, "id", "io.kong.incheon.nfc_check");
-            int friResID = getResources().getIdentifier("fri" + i, "id", "io.kong.incheon.nfc_check");
-            int satResID = getResources().getIdentifier("sat" + i, "id", "io.kong.incheon.nfc_check");
-
+            monResID[i] = getResources().getIdentifier("mon" + i, "id", "io.kong.incheon.nfc_check");
+            tueResID[i] = getResources().getIdentifier("tue" + i, "id", "io.kong.incheon.nfc_check");
+            wedResID[i] = getResources().getIdentifier("wed" + i, "id", "io.kong.incheon.nfc_check");
+            thuResID[i] = getResources().getIdentifier("thu" + i, "id", "io.kong.incheon.nfc_check");
+            friResID[i] = getResources().getIdentifier("fri" + i, "id", "io.kong.incheon.nfc_check");
+            satResID[i] = getResources().getIdentifier("sat" + i, "id", "io.kong.incheon.nfc_check");
         }
 
 
