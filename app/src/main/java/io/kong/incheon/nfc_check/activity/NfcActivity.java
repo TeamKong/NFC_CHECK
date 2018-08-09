@@ -9,11 +9,14 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import io.kong.incheon.nfc_check.R;
+import io.kong.incheon.nfc_check.item.NFCItem;
 
 //NFC 태그 값을 출력하는 코드입니다.
 //학생이 태그에 핸드폰을 접촉하면 출석이 되는 형식
 
 public class NfcActivity extends Activity{
+
+    NFCItem nfcItem = new NFCItem();
 
     private NfcAdapter nfcAdapter;
     private PendingIntent pendingIntent;
@@ -50,9 +53,10 @@ public class NfcActivity extends Activity{
             byte[] tagId= tag.getId();
             tagDesc.setText("Tag ID: "+toHexString(tagId));
             tagNum = toHexString(tagId);
+            nfcItem.setTagNum(toHexString(tagId));
         }
 
-       if(tagNum != null){
+       if(nfcItem.getTagNum() != null){
             Intent intent1 = new Intent(this, PopUpActivity.class);
             intent.putExtra("NFC Data", "NFC CONTACT SUCCESS");
             startActivityForResult(intent1, 1);
