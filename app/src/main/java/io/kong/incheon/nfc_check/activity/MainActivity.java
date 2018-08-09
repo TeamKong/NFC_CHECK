@@ -11,14 +11,29 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import io.kong.incheon.nfc_check.R;
+import io.kong.incheon.nfc_check.item.UserItem;
+import io.kong.incheon.nfc_check.service.RetrofitService;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.GsonConverterFactory;
+import retrofit.Response;
+import retrofit.Retrofit;
+
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    static final String TAG_URL = "http://13.209.75.255:3000";
+
+    private Retrofit retrofit;
+
     EditText input_id, input_pass;
     Button signin_btn, signup_btn;
-    private static String sId="";
-    private static String sPw="";
+    String sId="";
+    String sPw="";
     CheckBox autologin;
 
     Spinner spinner;
@@ -57,9 +72,33 @@ public class MainActivity extends AppCompatActivity {
                 switch (view.getId()){
                     case R.id.signin_btn:
 
-                            Intent intent = new Intent(MainActivity.this, FirstMenuActivity.class);
-                            startActivity(intent);
-                        // 로그인
+                        sId = input_id.getText().toString();
+                        sPw = input_pass.getText().toString();
+                        retrofit = new Retrofit.Builder()
+                                .baseUrl(TAG_URL)
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
+
+                        RetrofitService service = retrofit.create(RetrofitService.class);
+                        Call<List<UserItem>> call = service.login(sId,sPw);
+
+                        call.enqueue(new Callback<List<UserItem>>() {
+
+                            @Override
+                            public void onResponse(Response<List<UserItem>> response, Retrofit retrofit) {
+                                List<UserItem> userItems = response.body();
+                                if(userItems != null) {
+                                    Intent intent = new Intent(MainActivity.this, FirstMenuActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Throwable t) {
+                                Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                         break;
                     case R.id.signup_btn:
                         Intent intent1 = new Intent(MainActivity.this, SignupActivity.class);
