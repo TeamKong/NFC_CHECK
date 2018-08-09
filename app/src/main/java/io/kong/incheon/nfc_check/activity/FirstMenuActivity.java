@@ -20,6 +20,7 @@ public class FirstMenuActivity extends AppCompatActivity{
         setContentView(R.layout.activity_firstmenu);
 
         btnCheck = (Button) findViewById(R.id.btnCheck);
+        btnSetting = (Button) findViewById(R.id.btnSetting);
         btnCheckList = (Button) findViewById(R.id.btnCheckList);
         btnTimetable = (Button) findViewById(R.id.btnTimetable);
         btnSetting = (Button) findViewById(R.id.btnSetting);
@@ -42,6 +43,11 @@ public class FirstMenuActivity extends AppCompatActivity{
                         Intent intent_timetable = new Intent(FirstMenuActivity.this, TimeTableActivity.class);
                         startActivity(intent_timetable);
                         break;
+
+                    case R.id.btnSetting:
+                        Intent intent_setting = new Intent(FirstMenuActivity.this, SettingActivity.class);
+                        startActivity(intent_setting);
+                        break;
                 }
             }
         };
@@ -49,5 +55,6 @@ public class FirstMenuActivity extends AppCompatActivity{
         btnCheck.setOnClickListener(listener);
         btnCheckList.setOnClickListener(listener);
         btnTimetable.setOnClickListener(listener);
+        btnSetting.setOnClickListener(listener);
     }
 }
