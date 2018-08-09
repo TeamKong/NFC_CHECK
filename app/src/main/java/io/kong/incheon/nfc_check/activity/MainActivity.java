@@ -13,11 +13,11 @@ import android.widget.EditText;
 import io.kong.incheon.nfc_check.R;
 import io.kong.incheon.nfc_check.item.UserItem;
 import io.kong.incheon.nfc_check.service.RetrofitService;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -80,23 +80,25 @@ public class MainActivity extends AppCompatActivity {
                                 .build();
 
                         RetrofitService service = retrofit.create(RetrofitService.class);
-                        Call<List<UserItem>> call = service.login(sId,sPw);
+                        Call<List<UserItem>> call = service.login(sId, sPw);
 
                         call.enqueue(new Callback<List<UserItem>>() {
-
                             @Override
-                            public void onResponse(Response<List<UserItem>> response, Retrofit retrofit) {
-                                List<UserItem> userItems = response.body();
-                                if(userItems != null) {
-                                    Intent intent = new Intent(MainActivity.this, FirstMenuActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                            public void onResponse(Call<List<UserItem>> call, Response<List<UserItem>> response) {
+
+                                if(response.isSuccessful()) {
+                                    if(response.body() != null) {
+                                        Toast.makeText(MainActivity.this, response.body().toString(), Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(MainActivity.this, FirstMenuActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
                                 }
                             }
 
                             @Override
-                            public void onFailure(Throwable t) {
-                                Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+                            public void onFailure(Call<List<UserItem>> call, Throwable t) {
+                                Toast.makeText(MainActivity.this, "DB Failure", Toast.LENGTH_SHORT).show();
                             }
                         });
                         break;
