@@ -47,6 +47,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        retrofit = new Retrofit.Builder()
+                .baseUrl(TAG_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
         input_id = (EditText) findViewById(R.id.input_id);
         input_pass = (EditText) findViewById(R.id.input_pass);
         signin_btn = (Button) findViewById(R.id.signin_btn);
@@ -58,16 +64,34 @@ public class MainActivity extends AppCompatActivity {
         appData = getSharedPreferences("APPDATA",MODE_PRIVATE);
         load();
 
+
         //이전에 로그인을 저장한 이력이 있다면
        if (saveLoginData) {
-            input_id.setText(sId);
-            input_pass.setText(sPw);
-            autologin.setChecked(saveLoginData);
-            //TEST
-            Toast.makeText(MainActivity.this,sId+": 자동로그인",Toast.LENGTH_SHORT).show();
-           Intent intent = new Intent(MainActivity.this, FirstMenuActivity.class);
-           startActivity(intent);
-           finish();
+
+           RetrofitService service = retrofit.create(RetrofitService.class);
+           Call<List<UserItem>> call = service.login(sId, sPw);
+
+           call.enqueue(new Callback<List<UserItem>>() {
+               @Override
+               public void onResponse(Call<List<UserItem>> call, Response<List<UserItem>> response) {
+
+                   if(response.isSuccessful()) {
+                       if(response.body().toString() != "[]") {
+                           Toast.makeText(MainActivity.this,sId+"님 자동로그인",Toast.LENGTH_SHORT).show();
+                           Intent intent = new Intent(MainActivity.this, FirstMenuActivity.class);
+                           startActivity(intent);
+                           finish();
+                       } else {
+                           Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                       }
+                   }
+               }
+
+               @Override
+               public void onFailure(Call<List<UserItem>> call, Throwable t) {
+                   Toast.makeText(MainActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
+               }
+           });
         }
 
         spinner = (Spinner) findViewById(R.id.box_iden);
@@ -89,15 +113,9 @@ public class MainActivity extends AppCompatActivity {
                 switch (view.getId()){
                     case R.id.signin_btn:
 
-                        sId = input_id.getText().toString();
-                        sPw = input_pass.getText().toString();
-                        retrofit = new Retrofit.Builder()
-                                .baseUrl(TAG_URL)
-                                .addConverterFactory(GsonConverterFactory.create())
-                                .build();
-
                         RetrofitService service = retrofit.create(RetrofitService.class);
                         Call<List<UserItem>> call = service.login(sId, sPw);
+
 
                         call.enqueue(new Callback<List<UserItem>>() {
                             @Override
@@ -143,12 +161,11 @@ public class MainActivity extends AppCompatActivity {
         // 에디터객체.put타입( 저장시킬 이름, 저장시킬 값 )
         // 저장시킬 이름이 이미 존재하면 덮어씌움
         editor.putBoolean("SAVE_LOGIN_DATA", autologin.isChecked());
+
+
         editor.putString("ID", input_id.getText().toString().trim());
         editor.putString("PWD", input_pass.getText().toString().trim());
 
-        //TEST
-        Toast.makeText(MainActivity.this,"ID:"+input_id.getText().toString()+
-                " , PW:"+input_pass.getText().toString(),Toast.LENGTH_SHORT).show();
         // apply, commit 을 안하면 변경된 내용이 저장되지 않음
         editor.apply();
     }
