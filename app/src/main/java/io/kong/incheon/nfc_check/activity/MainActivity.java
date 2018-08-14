@@ -113,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
                 switch (view.getId()){
                     case R.id.signin_btn:
 
+                        sId = input_id.getText().toString();
+                        sPw = input_pass.getText().toString();
+
                         RetrofitService service = retrofit.create(RetrofitService.class);
                         Call<List<UserItem>> call = service.login(sId, sPw);
 
