@@ -12,7 +12,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import io.kong.incheon.nfc_check.R;
-import io.kong.incheon.nfc_check.item.JoinItem;
 import io.kong.incheon.nfc_check.service.RetrofitService;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -24,8 +23,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SignupActivity extends AppCompatActivity {
 
     static final String TAG_URL = "http://13.209.75.255:3000";
-
-    JoinItem joinItem;
 
     Spinner sUniversity;
     Spinner sGrade;
@@ -66,6 +63,7 @@ public class SignupActivity extends AppCompatActivity {
                 user_university = saUniversity.getItem(position).toString();
             }
             public void onNothingSelected(AdapterView<?>  parent) {
+
             }
         });
 
@@ -96,8 +94,6 @@ public class SignupActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        joinItem = new JoinItem();
-
         btnSummit = (Button) findViewById(R.id.btnSummit);
         edID = (EditText) findViewById(R.id.edID);
         edPW = (EditText) findViewById(R.id.edPW);
@@ -123,9 +119,8 @@ public class SignupActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()) {
                     Toast.makeText(SignupActivity.this, user_id + "님 회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(SignupActivity.this, FirstMenuActivity.class);
+                    Intent intent = new Intent(SignupActivity.this, MainActivity.class);
                     startActivity(intent);
-                    finish();
                 }
             }
 

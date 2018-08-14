@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
     EditText input_id, input_pass;
     Button signin_btn, signup_btn;
-    String sId="";
-    String sPw="";
+    String sId;
+    String sPw;
     CheckBox autologin;
 
     Spinner spinner;
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?>  parent, View view, int position, long id) {
-//                Toast.makeText(getApplicationContext(), sAdapter.getItem(position), Toast.LENGTH_SHORT).show();
+
             }
             public void onNothingSelected(AdapterView<?>  parent) {
             }
