@@ -1,5 +1,6 @@
 package io.kong.incheon.nfc_check.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,8 @@ import android.widget.Button;
 import io.kong.incheon.nfc_check.R;
 
 public class FirstMenuActivity extends AppCompatActivity{
+    public static Activity firstMenuActivity;
+
     Button btnCheck;
     Button btnCheckList;
     Button btnTimetable;
@@ -18,6 +21,8 @@ public class FirstMenuActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_firstmenu);
+
+        firstMenuActivity = FirstMenuActivity.this;
 
         btnCheck = (Button) findViewById(R.id.btnCheck);
         btnSetting = (Button) findViewById(R.id.btnSetting);
