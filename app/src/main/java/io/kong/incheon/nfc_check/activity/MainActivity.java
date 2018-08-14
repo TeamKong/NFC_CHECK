@@ -39,21 +39,15 @@ public class MainActivity extends AppCompatActivity {
     Spinner spinner;
     ArrayAdapter sAdapter;
 
+    static UserItem userItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        input_id = (EditText) findViewById(R.id.input_id);
-        input_pass = (EditText) findViewById(R.id.input_pass);
-        signin_btn = (Button) findViewById(R.id.signin_btn);
-        signup_btn = (Button) findViewById(R.id.signup_btn);
-        autologin = (CheckBox) findViewById(R.id.checkbox);
-        sId= input_id.getText().toString();
-        sPw=input_pass.getText().toString();
+        init();
 
-        spinner = (Spinner) findViewById(R.id.box_iden);
         sAdapter = ArrayAdapter.createFromResource(this, R.array.iden, android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(sAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -88,7 +82,10 @@ public class MainActivity extends AppCompatActivity {
 
                                 if(response.isSuccessful()) {
                                     if(response.body().toString() != "[]") {
-                                        Toast.makeText(MainActivity.this, response.body().toString(), Toast.LENGTH_SHORT).show();
+                                       userItem.setStid(sId);
+                                       userItem.setStPass(sPw);
+
+                                        Toast.makeText(MainActivity.this, userItem.getStid() + "님 환영합니다.", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(MainActivity.this, FirstMenuActivity.class);
                                         startActivity(intent);
                                         finish();
@@ -115,5 +112,19 @@ public class MainActivity extends AppCompatActivity {
 
         signup_btn.setOnClickListener(listener);
         signin_btn.setOnClickListener(listener);
+    }
+
+    public void init() {
+        userItem = new UserItem();
+
+        input_id = (EditText) findViewById(R.id.input_id);
+        input_pass = (EditText) findViewById(R.id.input_pass);
+        signin_btn = (Button) findViewById(R.id.signin_btn);
+        signup_btn = (Button) findViewById(R.id.signup_btn);
+        autologin = (CheckBox) findViewById(R.id.checkbox);
+        sId= input_id.getText().toString();
+        sPw=input_pass.getText().toString();
+
+        spinner = (Spinner) findViewById(R.id.box_iden);
     }
 }

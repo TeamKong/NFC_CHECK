@@ -1,18 +1,18 @@
 package io.kong.incheon.nfc_check.item;
 
 public class UserItem {
-    String stid;
-    String stPass;
+    static String stid;
+    static String stPass;
 
-    public String getStid() {
+    public static String getStid() {
         return stid;
     }
 
-    public void setStid(String stid) {
+    public  void setStid(String stid) {
         this.stid = stid;
     }
 
-    public String getStPass() {
+    public static String getStPass() {
         return stPass;
     }
 
