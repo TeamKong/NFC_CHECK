@@ -87,11 +87,13 @@ public class MainActivity extends AppCompatActivity {
                             public void onResponse(Call<List<UserItem>> call, Response<List<UserItem>> response) {
 
                                 if(response.isSuccessful()) {
-                                    if(response.body() != null) {
+                                    if(response.body().toString() != "[]") {
                                         Toast.makeText(MainActivity.this, response.body().toString(), Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(MainActivity.this, FirstMenuActivity.class);
                                         startActivity(intent);
                                         finish();
+                                    } else {
+                                        Toast.makeText(MainActivity.this, "아이디 및 패스워드를 확인해주세요.", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }
