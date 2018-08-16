@@ -27,4 +27,6 @@ public interface RetrofitService {
 
     @GET("person_subjectTable")
     Call<ResponseBody> person_subjectTable(@Query("user_id") String user_id);
+
+    static final String TAG_URL = "http://13.209.207.99:3000";
 }

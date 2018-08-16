@@ -24,9 +24,10 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import static io.kong.incheon.nfc_check.service.RetrofitService.TAG_URL;
+
 public class MainActivity extends AppCompatActivity {
 
-    static final String TAG_URL = "http://13.209.75.255:3000";
 
     private Retrofit retrofit;
 

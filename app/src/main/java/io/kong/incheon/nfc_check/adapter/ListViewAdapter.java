@@ -27,8 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ListViewAdapter extends ArrayAdapter implements View.OnClickListener {
 
-    static final String TAG_URL = "http://13.209.75.255:3000";
-    static final String TAG_JSON = "person_subject";
+    static final String TAG_URL = "http://13.209.207.99:3000";
 
     ListViewBtnItem listViewItem;
     int resourceId;

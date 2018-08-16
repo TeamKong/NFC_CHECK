@@ -20,9 +20,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class SignupActivity extends AppCompatActivity {
+import static io.kong.incheon.nfc_check.service.RetrofitService.TAG_URL;
 
-    static final String TAG_URL = "http://13.209.75.255:3000";
+public class SignupActivity extends AppCompatActivity {
 
     Spinner sUniversity;
     Spinner sGrade;

@@ -29,12 +29,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static io.kong.incheon.nfc_check.service.RetrofitService.TAG_URL;
+
 public class SubjectActivity extends AppCompatActivity{
 
     public static Activity subjectActivity;
 
     static final String TAG = SubjectActivity.class.getCanonicalName();
-    static final String TAG_URL = "http://13.209.75.255:3000";
     static final String TAG_JSON = "subject_table";
     static final String TAG_NAME = "sbj_name";
     static final String TAG_DAY = "sbj_day";

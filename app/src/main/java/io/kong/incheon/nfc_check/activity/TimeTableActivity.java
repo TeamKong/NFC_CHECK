@@ -1,11 +1,13 @@
 package io.kong.incheon.nfc_check.activity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -24,11 +26,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static io.kong.incheon.nfc_check.service.RetrofitService.TAG_URL;
+
 public class TimeTableActivity extends AppCompatActivity {
 
 
     static final String TAG = SubjectActivity.class.getCanonicalName();
-    static final String TAG_URL = "http://13.209.75.255:3000";
     static final String TAG_JSON = "person_subject";
     private Retrofit retrofit;
     JSONObject item;
@@ -39,12 +42,9 @@ public class TimeTableActivity extends AppCompatActivity {
 
     String user_id;
 
-    int monResID[] = new int[15];
-    int tueResID[] = new int[15];
-    int wedResID[] = new int[15];
-    int thuResID[] = new int[15];
-    int friResID[] = new int[15];
-    int satResID[] = new int[15];
+    int sub[][] = new int[14][5];
+    TextView txtSub[][] = new TextView[14][5];
+    String[] dayArr = new String[1];
 
 
     @Override
@@ -54,13 +54,11 @@ public class TimeTableActivity extends AppCompatActivity {
 
         userItem = new UserItem();
 
-        for (int i = 1; i <= 14; i++) {
-            monResID[i] = getResources().getIdentifier("mon" + i, "id", "io.kong.incheon.nfc_check");
-            tueResID[i] = getResources().getIdentifier("tue" + i, "id", "io.kong.incheon.nfc_check");
-            wedResID[i] = getResources().getIdentifier("wed" + i, "id", "io.kong.incheon.nfc_check");
-            thuResID[i] = getResources().getIdentifier("thu" + i, "id", "io.kong.incheon.nfc_check");
-            friResID[i] = getResources().getIdentifier("fri" + i, "id", "io.kong.incheon.nfc_check");
-            satResID[i] = getResources().getIdentifier("sat" + i, "id", "io.kong.incheon.nfc_check");
+        for (int i = 1; i < 14; i++) {
+            for (int j = 0; j < 5; j++) {
+                sub[i][j] = getResources().getIdentifier("sub" + i + "_" + j, "id", "io.kong.incheon.nfc_check");
+                txtSub[i][j] = (TextView) findViewById(sub[i][j]);
+            }
         }
 
         user_id = userItem.getStid();
@@ -84,15 +82,26 @@ public class TimeTableActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(result);
                             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
-                            for(int i = 0; i < jsonArray.length(); i++) {
+                            for (int i = 0; i < jsonArray.length(); i++) {
 
                                 item = jsonArray.getJSONObject(i);
 
                                 String stName = item.getString("sbj_name");
                                 String stDay = item.getString("sbj_day");
-                                String stProfessor = item.getString("sbj_professor");
-                                String stIndex = item.getString("sbj_index");
 
+                                int pos = stDay.indexOf(",");
+                                dayArr = stDay.split(",");
+
+                                if (Integer.toString(pos) != "-1") {
+                                    String[] firDay = dayArr[0].split(" ");
+                                    String[] secDay = dayArr[1].split(" ");
+                                    gridTable(firDay, stName);
+                                    gridTable(secDay, stName);
+
+                                } else {
+                                    String[] singleDay = stDay.split(" ");
+                                    gridTable(singleDay, stName);
+                                }
                             }
 
                         } catch (JSONException e) {
@@ -119,5 +128,59 @@ public class TimeTableActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void gridTable(String[] dayArr, String stName){
+            switch (dayArr[0]) {
+                case "월":
+                    for (int x = 1; x < dayArr.length; x++) {
+                        for (int y = 1; y < 14; y++) {
+                            if (dayArr[x].equals(Integer.toString(y))) {
+                                txtSub[y][0].setText(stName);
+                            }
+                        }
+                    }
+                    break;
+                case "화":
+                    for (int x = 1; x < dayArr.length; x++) {
+                        for (int y = 1; y < 14; y++) {
+                            if (dayArr[x].equals(Integer.toString(y))) {
+                                txtSub[y][1].setText(stName);
+                            }
+                        }
+
+                    }
+                    break;
+                case "수":
+                    for (int x = 1; x < dayArr.length; x++) {
+                        for (int y = 1; y < 14; y++) {
+                            if (dayArr[x].equals(Integer.toString(y))) {
+                                txtSub[y][2].setText(stName);
+                            }
+
+                        }
+                    }
+                    break;
+                case "목":
+                    for (int x = 1; x < dayArr.length; x++) {
+                        for (int y = 1; y < 14; y++) {
+                            if (dayArr[x].equals(Integer.toString(y))) {
+                                txtSub[y][3].setText(stName);
+
+                            }
+                        }
+                    }
+                    break;
+                case "금":
+                    for (int x = 1; x < dayArr.length; x++) {
+                        for (int y = 1; y < 14; y++) {
+                            if (dayArr[x].equals(Integer.toString(y))) {
+                                txtSub[y][4].setText(stName);
+
+                            }
+                        }
+                    }
+                    break;
+            }
     }
 }
