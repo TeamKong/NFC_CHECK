@@ -3,10 +3,18 @@ package io.kong.incheon.nfc_check.activity;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
+import android.nfc.TagLostException;
+import android.nfc.tech.Ndef;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.util.Timer;
 
 import io.kong.incheon.nfc_check.R;
 import io.kong.incheon.nfc_check.item.NFCItem;
@@ -15,6 +23,7 @@ import io.kong.incheon.nfc_check.item.NFCItem;
 //학생이 태그에 핸드폰을 접촉하면 출석이 되는 형식
 
 public class NfcActivity extends Activity{
+
 
     NFCItem nfcItem = new NFCItem();
 
@@ -45,23 +54,42 @@ public class NfcActivity extends Activity{
    }
 
    @Override
-    protected void onNewIntent(Intent intent){
-        super.onNewIntent(intent);
+    protected void onNewIntent(Intent intent) {
+       super.onNewIntent(intent);
 
-        Tag tag= intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        if(tag != null){
-            byte[] tagId= tag.getId();
-            tagDesc.setText("Tag ID: "+toHexString(tagId));
-            tagNum = toHexString(tagId);
-            nfcItem.setTagNum(toHexString(tagId));
-        }
+       Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 
-       if(nfcItem.getTagNum() != null){
-            Intent intent1 = new Intent(this, PopUpActivity.class);
-            intent.putExtra("NFC Data", "NFC CONTACT SUCCESS");
-            startActivityForResult(intent1, 1);
-        }
 
+       Ndef ndefTag = Ndef.get(tag);
+
+       if (tag != null) {
+
+           byte[] tagId = tag.getId();
+           tagDesc.setText("Tag ID: " + toHexString(tagId));
+           tagNum = toHexString(tagId);
+           nfcItem.setTagNum(toHexString(tagId));
+       }
+
+       if (nfcItem.getTagNum() != null) {
+           Intent intent1 = new Intent(this, PopUpActivity.class);
+           intent.putExtra("NFC Data", "NFC CONTACT SUCCESS");
+           startActivityForResult(intent1, 1);
+       }
+
+
+       try {
+           ndefTag.connect();
+           Log.e("connect:", "range...");
+
+           while (ndefTag.isConnected()) {
+               Log.e("First", ": Connected Success!");
+               }
+           ndefTag.close();
+           Log.e("Second", ": is connected.");
+
+       } catch (IOException e) {
+
+       }
    }
    public static final String CHARS = "0123456789ABCDEF";
 

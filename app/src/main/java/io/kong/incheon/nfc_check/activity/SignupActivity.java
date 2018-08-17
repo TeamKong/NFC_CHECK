@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignupActivity extends AppCompatActivity {
 
-    static final String TAG_URL = "http://13.209.75.255:3000";
+    static final String TAG_URL = "http://13.209.207.99:3000";
 
     Spinner sUniversity;
     Spinner sGrade;
