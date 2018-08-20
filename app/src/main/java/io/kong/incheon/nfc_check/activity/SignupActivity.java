@@ -20,9 +20,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class SignupActivity extends AppCompatActivity {
+import static io.kong.incheon.nfc_check.service.RetrofitService.TAG_URL;
 
-    static final String TAG_URL = "http://13.209.75.255:3000";
+public class SignupActivity extends AppCompatActivity {
 
     Spinner sUniversity;
     Spinner sGrade;
@@ -126,7 +126,7 @@ public class SignupActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(SignupActivity.this, "서버 통신에 실패했습니다", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignupActivity.this, R.string.db_failure, Toast.LENGTH_SHORT).show();
             }
         });
     }
