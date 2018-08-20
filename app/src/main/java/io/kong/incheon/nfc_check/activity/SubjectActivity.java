@@ -113,7 +113,7 @@ public class SubjectActivity extends AppCompatActivity{
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                Toast.makeText(SubjectActivity.this, R.string.db_failure, Toast.LENGTH_SHORT).show();
             }
         });
     }

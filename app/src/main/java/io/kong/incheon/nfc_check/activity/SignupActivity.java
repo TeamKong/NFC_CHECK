@@ -126,7 +126,7 @@ public class SignupActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(SignupActivity.this, "서버 통신에 실패했습니다", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignupActivity.this, R.string.db_failure, Toast.LENGTH_SHORT).show();
             }
         });
     }

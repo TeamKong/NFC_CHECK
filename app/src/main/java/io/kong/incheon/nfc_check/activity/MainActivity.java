@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Call<List<UserItem>> call, Throwable t) {
-                                Toast.makeText(MainActivity.this, "DB Failure", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, R.string.db_failure, Toast.LENGTH_SHORT).show();
                             }
                         });
                         break;

@@ -31,7 +31,7 @@ import static io.kong.incheon.nfc_check.service.RetrofitService.TAG_URL;
 public class TimeTableActivity extends AppCompatActivity {
 
 
-    static final String TAG = SubjectActivity.class.getCanonicalName();
+    static final String TAG = TimeTableActivity.class.getCanonicalName();
     static final String TAG_JSON = "person_subject";
     private Retrofit retrofit;
     JSONObject item;
@@ -77,7 +77,6 @@ public class TimeTableActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     try {
-                        Toast.makeText(TimeTableActivity.this, "test", Toast.LENGTH_SHORT).show();
                         String result = response.body().string();
                         try {
                             JSONObject jsonObject = new JSONObject(result);
@@ -115,7 +114,7 @@ public class TimeTableActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                Toast.makeText(TimeTableActivity.this, R.string.db_failure, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -130,57 +129,39 @@ public class TimeTableActivity extends AppCompatActivity {
 
     }
 
-    public void gridTable(String[] dayArr, String stName){
-            switch (dayArr[0]) {
-                case "월":
-                    for (int x = 1; x < dayArr.length; x++) {
-                        for (int y = 1; y < 14; y++) {
-                            if (dayArr[x].equals(Integer.toString(y))) {
-                                txtSub[y][0].setText(stName);
-                            }
-                        }
-                    }
-                    break;
-                case "화":
-                    for (int x = 1; x < dayArr.length; x++) {
-                        for (int y = 1; y < 14; y++) {
-                            if (dayArr[x].equals(Integer.toString(y))) {
-                                txtSub[y][1].setText(stName);
-                            }
-                        }
+    public void gridTable(String[] dayArr, String stName) {
+        int i;
+        switch (dayArr[0]) {
+            case "월":
+                i = 0;
+                gridTable2(dayArr, stName, i);
+                break;
+            case "화":
+                i = 1;
+                gridTable2(dayArr, stName, i);
+                break;
+            case "수":
+                i = 2;
+                gridTable2(dayArr, stName, i);
+                break;
+            case "목":
+                i = 3;
+                gridTable2(dayArr, stName, i);
+                break;
+            case "금":
+                i = 4;
+                gridTable2(dayArr, stName, i);
+                break;
+        }
+    }
 
-                    }
-                    break;
-                case "수":
-                    for (int x = 1; x < dayArr.length; x++) {
-                        for (int y = 1; y < 14; y++) {
-                            if (dayArr[x].equals(Integer.toString(y))) {
-                                txtSub[y][2].setText(stName);
-                            }
-
-                        }
-                    }
-                    break;
-                case "목":
-                    for (int x = 1; x < dayArr.length; x++) {
-                        for (int y = 1; y < 14; y++) {
-                            if (dayArr[x].equals(Integer.toString(y))) {
-                                txtSub[y][3].setText(stName);
-
-                            }
-                        }
-                    }
-                    break;
-                case "금":
-                    for (int x = 1; x < dayArr.length; x++) {
-                        for (int y = 1; y < 14; y++) {
-                            if (dayArr[x].equals(Integer.toString(y))) {
-                                txtSub[y][4].setText(stName);
-
-                            }
-                        }
-                    }
-                    break;
+    public void gridTable2(String[] dayArr, String stName, int i) {
+        for (int x = 1; x < dayArr.length; x++) {
+            for (int y = 1; y < 14; y++) {
+                if (dayArr[x].equals(Integer.toString(y))) {
+                    txtSub[y][i].setText(stName);
+                }
             }
+        }
     }
 }
