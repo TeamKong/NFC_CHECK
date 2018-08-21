@@ -38,10 +38,9 @@
         <activity android:name=".activity.FirstMenuActivity" />
         <activity android:name=".activity.NfcActivity"/>
         <activity android:name=".activity.ListActivity"/>
-
-        <!--팝업 액티비티-->
-        <activity android:name=".activity.PopUpActivity"
+        <activity android:name=".activity.PopupActivity"
             android:theme="@android:style/Theme.Dialog" />
+        <!--팝업 액티비티-->
 
     </application>
 

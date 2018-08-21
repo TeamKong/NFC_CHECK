@@ -17,7 +17,7 @@
             android:layout_height="53dp"
             android:background="@color/colorPrimary"
             android:gravity="center"
-            android:text="Notice"
+            android:text="출석시간"
             android:textColor="#fff"
             android:textSize="20sp" />
     </LinearLayout>
@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="출석완료되었습니다."
+            android:id="@+id/txtText"
             android:textSize="20sp"
             />
 
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:id="@+id/txtText"/>
+            android:id="@+id/txtText2"/>
     </LinearLayout>
     <!-- Notice -->
 

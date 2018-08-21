@@ -36,6 +36,7 @@ public class SubjectActivity extends AppCompatActivity{
     public static Activity subjectActivity;
 
     static final String TAG = SubjectActivity.class.getCanonicalName();
+  
     static final String TAG_JSON = "subject_table";
     static final String TAG_NAME = "sbj_name";
     static final String TAG_DAY = "sbj_day";

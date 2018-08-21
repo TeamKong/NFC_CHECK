@@ -5,16 +5,22 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
+import android.nfc.tech.Ndef;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
-
+import java.io.IOException;
 import io.kong.incheon.nfc_check.R;
 import io.kong.incheon.nfc_check.item.NFCItem;
+import io.kong.incheon.nfc_check.item.TimeItem;
 
 //NFC 태그 값을 출력하는 코드입니다.
 //학생이 태그에 핸드폰을 접촉하면 출석이 되는 형식
 
 public class NfcActivity extends Activity{
+
+   static TimeItem timeItem = new TimeItem();
+    static long curSecond;
 
     NFCItem nfcItem = new NFCItem();
 
@@ -22,18 +28,17 @@ public class NfcActivity extends Activity{
     private PendingIntent pendingIntent;
     public static String tagNum=null;
     private TextView tagDesc;
+    private TextView noticetxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nfc);
-
+        noticetxt = findViewById(R.id.notice_txt);
         tagDesc = findViewById(R.id.tagDesc);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         Intent intent = new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-
-
     }
 
    @Override
@@ -45,22 +50,41 @@ public class NfcActivity extends Activity{
    }
 
    @Override
-    protected void onNewIntent(Intent intent){
-        super.onNewIntent(intent);
+    protected void onNewIntent(Intent intent) {
+       super.onNewIntent(intent);
+       final Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+       final Ndef ndefTag = Ndef.get(tag);
 
-        Tag tag= intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        if(tag != null){
-            byte[] tagId= tag.getId();
-            tagDesc.setText("Tag ID: "+toHexString(tagId));
-            tagNum = toHexString(tagId);
-            nfcItem.setTagNum(toHexString(tagId));
-        }
 
-       if(nfcItem.getTagNum() != null){
-            Intent intent1 = new Intent(this, PopUpActivity.class);
-            intent.putExtra("NFC Data", "NFC CONTACT SUCCESS");
-            startActivityForResult(intent1, 1);
-        }
+       if (tag != null) {
+           curSecond = System.currentTimeMillis() ;
+           timeItem.setSecondTime(curSecond); //찍은 직후의 시간 밀리초를 넣엇당..
+           Log.e("curSecond",""+curSecond);
+
+
+           byte[] tagId = tag.getId();
+           tagDesc.setText("Tag ID: " + toHexString(tagId));
+           tagNum = toHexString(tagId);
+           nfcItem.setTagNum(toHexString(tagId));
+       }
+
+       try {
+           ndefTag.connect();
+           NoticePrint(noticetxt);
+
+           while(ndefTag.isConnected()) {
+           }
+
+           ndefTag.close();
+           Log.e("Second", ": connecting exit.");
+           Intent intent2 = new Intent(NfcActivity.this, PopupActivity.class);
+           intent.putExtra("NFC Data", "NFC DISCONNECTED");
+           startActivityForResult(intent2, 2);
+
+       } catch (IOException e) {
+
+       }
+
 
    }
    public static final String CHARS = "0123456789ABCDEF";
@@ -74,5 +98,8 @@ public class NfcActivity extends Activity{
         return sb.toString();
     }
 
+    public void NoticePrint(TextView text){
+        text.setText("출석이 완료 되었습니다. 누적을 위해 태그에 계속 접촉해주세요.");
+    }
 
 }

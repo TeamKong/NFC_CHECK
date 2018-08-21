@@ -29,7 +29,6 @@ import static io.kong.incheon.nfc_check.service.RetrofitService.TAG_URL;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private Retrofit retrofit;
     public static SharedPreferences appData;
     boolean saveLoginData;
