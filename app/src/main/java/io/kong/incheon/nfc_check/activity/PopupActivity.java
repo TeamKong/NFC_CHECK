@@ -8,12 +8,16 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import io.kong.incheon.nfc_check.R;
+
 import static io.kong.incheon.nfc_check.activity.NfcActivity.timeItem;
 
 public class PopupActivity extends Activity {
+
     long CheckTime;
     static long TimeRiver = 0; //누적시간
     TextView txtText;
@@ -39,6 +43,7 @@ public class PopupActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup);
+
         txtText = (TextView) findViewById(R.id.txtText);
 
         //시간 출력하기
@@ -48,18 +53,16 @@ public class PopupActivity extends Activity {
         day_txt.setText(formatDate);
         time_txt.setText(formatTime);
 
-        CheckTime = (first-timeItem.getSecondTime())/1000;
-        TimeRiver= TimeRiver + CheckTime; //누적시간 확인
+        CheckTime = (first - timeItem.getSecondTime()) / 1000;
+        TimeRiver = TimeRiver + CheckTime; //누적시간 확인
 
-        Log.e("first And Second : ",""+first+","+timeItem.getSecondTime()+", TimeRiver: "+ TimeRiver+", Minus:"+String.valueOf(first-timeItem.getSecondTime()));
-        if(TimeRiver <60) {
-            txtText.setText("누적시간 "+TimeRiver + "초가 지난 뒤 NFC TAG 접촉을 해제");
-        }
-        else if(TimeRiver %60 == 0){
-            txtText.setText("누적시간 "+TimeRiver/60+"분이 지난 뒤 NFC TAG 접촉을 해제");
-        }
-        else if(TimeRiver >= 60) {
-            txtText.setText("누적시간 "+TimeRiver/60 +"분 "+ TimeRiver%60+"초가 지난 뒤 NFC TAG 접촉을 해제");
+        Log.e("first And Second : ", "" + first + "," + timeItem.getSecondTime() + ", TimeRiver: " + TimeRiver + ", Minus:" + String.valueOf(first - timeItem.getSecondTime()));
+        if (TimeRiver < 60) {
+            txtText.setText("누적시간 " + TimeRiver + "초가 지난 뒤 NFC TAG 접촉을 해제");
+        } else if (TimeRiver % 60 == 0) {
+            txtText.setText("누적시간 " + TimeRiver / 60 + "분이 지난 뒤 NFC TAG 접촉을 해제");
+        } else if (TimeRiver >= 60) {
+            txtText.setText("누적시간 " + TimeRiver / 60 + "분 " + TimeRiver % 60 + "초가 지난 뒤 NFC TAG 접촉을 해제");
         }
 
     }
