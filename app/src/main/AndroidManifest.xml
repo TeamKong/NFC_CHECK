@@ -28,6 +28,13 @@
         <activity android:name=".activity.SignupActivity" />
         <activity android:name=".activity.MainActivity"
             android:label="@string/app_name">
+        </activity>
+
+        <!--Splash MENU-->
+        <activity
+            android:name=".activity.SplashActivity"
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
