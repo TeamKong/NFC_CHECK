@@ -63,7 +63,7 @@ public class NfcActivity extends Activity {
         if (tag != null) {
             curSecond = System.currentTimeMillis();
             timeItem.setSecondTime(curSecond); //찍은 직후의 시간 밀리초를 넣엇당..
-            Log.i("curSecond", Long.toString(curSecond));
+            Log.i("curSecond", ""+curSecond);
 
 
             byte[] tagId = tag.getId();

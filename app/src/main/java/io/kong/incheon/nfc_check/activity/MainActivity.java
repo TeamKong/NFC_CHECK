@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -38,14 +39,16 @@ public class MainActivity extends AppCompatActivity {
     String sPw;
     CheckBox autologin;
 
-    Spinner spinner;
-    ArrayAdapter sAdapter;
+//    Spinner spinner;
+//    ArrayAdapter sAdapter;
 
     static UserItem userItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
         appData = getSharedPreferences("APPDATA", MODE_PRIVATE);
@@ -81,17 +84,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-        sAdapter = ArrayAdapter.createFromResource(this, R.array.iden, android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(sAdapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+//        sAdapter = ArrayAdapter.createFromResource(this, R.array.iden, android.R.layout.simple_spinner_dropdown_item);
+//        spinner.setAdapter(sAdapter);
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//            }
+//
+//            public void onNothingSelected(AdapterView<?> parent) {
+//            }
+//        });
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -164,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
         sId = input_id.getText().toString();
         sPw = input_pass.getText().toString();
 
-        spinner = (Spinner) findViewById(R.id.box_iden);
+//        spinner = (Spinner) findViewById(R.id.box_iden);
 
     }
 

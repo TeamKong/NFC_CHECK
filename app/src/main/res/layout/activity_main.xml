@@ -1,36 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
+    android:background="@drawable/loginbackground"
     android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:orientation="vertical">
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="신   분"/>
-        <Spinner
-            android:id="@+id/box_iden"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"/>
-
+        android:orientation="vertical"
+        android:layout_weight="7">
 
     </LinearLayout>
 
@@ -39,19 +27,17 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="I      D" />
 
         <EditText
             android:id="@+id/input_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:inputType="number" />
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:hint="학번"
+            android:background="@drawable/emptybox"
+            android:inputType="number"
+            android:paddingLeft="10dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -59,17 +45,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="PASS" />
-
         <EditText
             android:id="@+id/input_pass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:hint="패스워드"
+            android:paddingLeft="10dp"
+            android:background="@drawable/emptybox"
             android:inputType="textPassword" />
 
     </LinearLayout>
@@ -84,20 +67,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/signin_btn"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:text="LOGIN" />
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/bluebox"
+                android:text="로그인" />
 
             <Button
                 android:id="@+id/signup_btn"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="SIGNUP" />
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/graybox"
+                android:text="회원가입" />
         </LinearLayout>
 
         <CheckBox
@@ -105,8 +95,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
             android:text="Remember Login" />
 
+    </LinearLayout>
     </LinearLayout>
 
 

@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,9 +32,16 @@ public class PopupActivity extends Activity {
     // 시간을 나타냇 포맷을 정한다 ( yyyy/MM/dd 같은 형태로 변형 가능 )
     SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy/MM/dd");
     SimpleDateFormat sdfNowTime = new SimpleDateFormat("HH:mm:ss");
+
+    SimpleDateFormat minute = new SimpleDateFormat("mm"); //45분을 측정하는 변수
+    SimpleDateFormat day = new SimpleDateFormat("E"); //오늘이 무슨 요일인지 판단
+
     // nowDate 변수에 값을 저장한다.
     String formatDate = sdfNow.format(date);
     String formatTime = sdfNowTime.format(date);
+
+    String formatMinute = minute.format(date);
+    String formatDay= day.format(date);
 
     long first = System.currentTimeMillis();
 
@@ -56,22 +64,30 @@ public class PopupActivity extends Activity {
         CheckTime = (first - timeItem.getSecondTime()) / 1000;
         TimeRiver = TimeRiver + CheckTime; //누적시간 확인
 
-        Log.e("first And Second : ", "" + first + "," + timeItem.getSecondTime() + ", TimeRiver: " + TimeRiver + ", Minus:" + String.valueOf(first - timeItem.getSecondTime()));
-        if (TimeRiver < 60) {
-            txtText.setText("누적시간 " + TimeRiver + "초가 지난 뒤 NFC TAG 접촉을 해제");
-        } else if (TimeRiver % 60 == 0) {
-            txtText.setText("누적시간 " + TimeRiver / 60 + "분이 지난 뒤 NFC TAG 접촉을 해제");
-        } else if (TimeRiver >= 60) {
-            txtText.setText("누적시간 " + TimeRiver / 60 + "분 " + TimeRiver % 60 + "초가 지난 뒤 NFC TAG 접촉을 해제");
-        }
+        Log.i("minute: ",formatMinute+", day : "+formatDay);
 
+        if (formatMinute == "45") {
+            Toast.makeText(PopupActivity.this, "수업이 종료되었습니다. 총 누적시간은 " + TimeRiver + "분 입니다.", Toast.LENGTH_SHORT).show();
+            TimeRiver = 0;
+        }
+        else if(formatMinute != "45") {
+            Log.i("first And Second : ", "" + first + "," + timeItem.getSecondTime() + ", TimeRiver: " + TimeRiver + ", Minus:" + String.valueOf(first - timeItem.getSecondTime()));
+
+            if (TimeRiver < 60) {
+                txtText.setText("누적시간 " + TimeRiver + "초가 지난 뒤 NFC TAG 접촉을 해제");
+            } else if (TimeRiver % 60 == 0) {
+                txtText.setText("누적시간 " + TimeRiver / 60 + "분이 지난 뒤 NFC TAG 접촉을 해제");
+            } else if (TimeRiver >= 60) {
+                txtText.setText("누적시간 " + TimeRiver / 60 + "분 " + TimeRiver % 60 + "초가 지난 뒤 NFC TAG 접촉을 해제");
+            }
+        }
     }
 
     //확인 버튼 클릭
     public void mOnClose(View v) {
         //데이터 전달하기
         Intent intent = new Intent();
-        intent.putExtra("result", "Close Popup_2");
+        intent.putExtra("result", "Close Popup");
         setResult(RESULT_OK, intent);
 
         //액티비티(팝업) 닫기
