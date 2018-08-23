@@ -91,7 +91,7 @@ public class TimeTableActivity extends AppCompatActivity {
                                 int pos = stDay.indexOf(",");
                                 dayArr = stDay.split(",");
 
-                                if (Integer.toString(pos) != "-1") {
+                                if (!Integer.toString(pos).equals("-1")) {
                                     String[] firDay = dayArr[0].split(" ");
                                     String[] secDay = dayArr[1].split(" ");
                                     gridTable(firDay, stName);
@@ -124,6 +124,7 @@ public class TimeTableActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(TimeTableActivity.this, SubjectActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

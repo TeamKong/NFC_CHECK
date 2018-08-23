@@ -120,34 +120,40 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
                 .setPositiveButton("추가", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        doubleCheck = true;
                         RetrofitService searchService = retrofit.create(RetrofitService.class);
                         Call<ResponseBody> searchCall = searchService.person_subjectTable(user_id);
                         searchCall.enqueue(new Callback<ResponseBody>() {
                             @Override
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                try {
+                                    String result = response.body().string();
                                     try {
-                                        String result = response.body().string();
-                                        try {
-                                            JSONObject jsonObject = new JSONObject(result);
-                                            jsonArray = jsonObject.getJSONArray("person_subject");
-                                            if (jsonArray.length() == 0) {
-                                                insertPersonSubject();
-                                            }
-                                            for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject jsonObject = new JSONObject(result);
+                                        jsonArray = jsonObject.getJSONArray("person_subject");
+                                        if (jsonArray.length() == 0) {
+                                            insertPersonSubject();
+                                        }
+                                        for (int i = 0; i < jsonArray.length(); i++) {
+                                            if (doubleCheck) {
+                                                item = jsonArray.getJSONObject(i);
+                                                String dbGetDay = item.getString("sbj_day");
+                                                String dbGetName = item.getString("sbj_name");
+                                                int dbPos = dbGetDay.indexOf(",");
+                                                dbGetDayArr = dbGetDay.split(",");
 
-                                                if (doubleCheck) {
-                                                    item = jsonArray.getJSONObject(i);
-                                                    String dbGetDay = item.getString("sbj_day");
-                                                    int dbPos = dbGetDay.indexOf(",");
-                                                    dbGetDayArr = dbGetDay.split(",");
+                                                int stPos = stDay.indexOf(",");
+                                                stGetDayArr = stDay.split(",");
 
-                                                    int stPos = stDay.indexOf(",");
-                                                    stGetDayArr = stDay.split(",");
+                                                if (stName.equals(dbGetName)) {
+                                                    Toast.makeText(context.getApplicationContext(), "같은 과목은 시간표에 입력이 불가합니다.", Toast.LENGTH_SHORT).show();
+                                                    doubleCheck = false;
+                                                } else {
 
                                                     if (stDay.equals(dbGetDay)) {
                                                         Toast.makeText(context.getApplicationContext(), "시간이 중복됩니다.", Toast.LENGTH_SHORT).show();
-
-                                                    } else if ((Integer.toString(dbPos) != "-1") && (Integer.toString(stPos) != "-1")) {
+                                                        doubleCheck = false;
+                                                    } else if (!(Integer.toString(dbPos).equals("-1")) && !(Integer.toString(stPos).equals("-1"))) {
                                                         String[] DBfirDay = dbGetDayArr[0].split(" ");
                                                         String[] DBsecDay = dbGetDayArr[1].split(" ");
 
@@ -156,7 +162,7 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
 
                                                         weekConfirmTest(DBfirDay, DBsecDay, stFirDay, stSecDay, i);
 
-                                                    } else if ((Integer.toString(dbPos) != "-1") && (Integer.toString(stPos) == "-1")) {
+                                                    } else if (!(Integer.toString(dbPos).equals("-1")) && (Integer.toString(stPos).equals("-1"))) {
                                                         String[] DBfirDay = dbGetDayArr[0].split(" ");
                                                         String[] DBsecDay = dbGetDayArr[1].split(" ");
 
@@ -164,7 +170,7 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
 
                                                         weekConfirmTest(DBfirDay, DBsecDay, singleDay, null, i);
 
-                                                    } else if ((Integer.toString(dbPos) == "-1") && (Integer.toString(stPos) != "-1")) {
+                                                    } else if ((Integer.toString(dbPos).equals("-1")) && !(Integer.toString(stPos).equals("-1"))) {
                                                         String[] DBsingleDay = dbGetDay.split(" ");
 
                                                         String[] stFirDay = stGetDayArr[0].split(" ");
@@ -180,13 +186,14 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
                                                     }
                                                 }
                                             }
-
-                                        } catch (JSONException e) {
-                                            Log.d(TAG, "showResult : ", e);
                                         }
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
+
+                                    } catch (JSONException e) {
+                                        Log.d(TAG, "showResult : ", e);
                                     }
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
 
                             }
 
@@ -210,7 +217,7 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
 
     public void weekConfirmTest(String[] DBdayArr1, String[] DBdayArr2, String[] STdayArr1, String[] STdayArr2, int i) {
         if (DBdayArr2 == null && STdayArr2 == null) {
-            if(DBdayArr1[0].equals(STdayArr1[0])) {
+            if (DBdayArr1[0].equals(STdayArr1[0])) {
                 dayConfirmTest(DBdayArr1, null, STdayArr1, null, i);
             } else {
                 insertPersonSubject();
@@ -222,7 +229,7 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
                 insertPersonSubject();
             }
         } else if (DBdayArr2 == null) {
-            if(DBdayArr1[0].equals(STdayArr1[0]) || DBdayArr1[0].equals(STdayArr2[0])) {
+            if (DBdayArr1[0].equals(STdayArr1[0]) || DBdayArr1[0].equals(STdayArr2[0])) {
                 dayConfirmTest(DBdayArr1, null, STdayArr1, STdayArr2, i);
             } else {
                 insertPersonSubject();
@@ -238,7 +245,7 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
 
     public void dayConfirmTest(String[] DBdayArr1, String[] DBdayArr2, String[] STdayArr1, String[] STdayArr2, int i) {
         if (DBdayArr2 == null && STdayArr2 == null) {
-                overlapSearchTest(DBdayArr1, STdayArr1, i);
+            overlapSearchTest(DBdayArr1, STdayArr1, i);
         } else if (STdayArr2 == null) {
             if (DBdayArr1[0].equals(STdayArr1[0])) {
                 overlapSearchTest(DBdayArr1, STdayArr1, i);
@@ -266,8 +273,9 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
     }
 
     public void overlapSearchTest(String[] DBdayArr, String[] STdayArr, int i) {
-        Loop: for (int x = 1; x < DBdayArr.length; x++) {
-            for (int y = 1; y < DBdayArr.length; y++) {
+        Loop:
+        for (int x = 1; x < DBdayArr.length; x++) {
+            for (int y = 1; y < STdayArr.length; y++) {
                 if (i == jsonArray.length()) {
                     if (DBdayArr[x].equals(STdayArr[y])) {
                         doubleCheck = false;
@@ -291,7 +299,6 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
     }
 
 
-
     private void insertPersonSubject() {
         RetrofitService insertService = retrofit.create(RetrofitService.class);
         Call<ResponseBody> insertCall = insertService.person_subject(user_id, stName, stIndex, stProfessor, stDay);
@@ -302,6 +309,7 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
                 if (response.isSuccessful()) {
                     Toast.makeText(context.getApplicationContext(), "추가완료", Toast.LENGTH_SHORT).show();
                     SubjectActivity subjectActivity = (SubjectActivity) SubjectActivity.subjectActivity;
+                    doubleCheck = false;
                     Intent intent = new Intent(subjectActivity, TimeTableActivity.class);
                     subjectActivity.startActivity(intent);
                     subjectActivity.finish();

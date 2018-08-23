@@ -1,6 +1,7 @@
 package io.kong.incheon.nfc_check.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -200,5 +201,11 @@ public class SubjectActivity extends AppCompatActivity{
                 .build();
         service = retrofit.create(RetrofitService.class);
     }
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(SubjectActivity.this, TimeTableActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
