@@ -10,4 +10,50 @@
         <item>3</item>
         <item>4</item>
     </string-array>
+
+    <string-array name="division">
+        <item>전체</item>
+        <item>건설환경공학</item>
+        <item>경영학</item>
+        <item>교양</item>
+        <item>국어국문학</item>
+        <item>기계공학</item>
+        <item>도시건축학</item>
+        <item>독어독문학</item>
+        <item>동북아국제통상학</item>
+        <item>디자인학</item>
+        <item>무역학</item>
+        <item>산업경영학</item>
+        <item>생명공학</item>
+        <item>임베디드시스템공학과</item>
+        <item>전기공학과</item>
+        <item>전자공학과</item>
+        <item>정보통신공학과</item>
+        <item>창의인재개발학과</item>
+        <item>컴퓨터공학부</item>
+    </string-array>
+
+    <string-array name="category">
+        <item>전체</item>
+        <item>교선</item>
+        <item>교필</item>
+        <item>교직</item>
+        <item>전선</item>
+        <item>전기</item>
+        <item>전필</item>
+    </string-array>
+
+    <string-array name="category_culture">
+        <item>전체</item>
+        <item>교선</item>
+        <item>교필</item>
+        <item>교직</item>
+    </string-array>
+    
+    <string-array name="category_major">
+        <item>전체</item>
+        <item>전선</item>
+        <item>전기</item>
+        <item>전필</item>
+    </string-array>
 </resources>

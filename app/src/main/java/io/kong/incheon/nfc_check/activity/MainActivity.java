@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
                     if (response.isSuccessful()) {
                         if (response.body().toString() != "[]") {
+                            userItem.setStid(sId);
+                            userItem.setStPass(sPw);
                             Toast.makeText(MainActivity.this, sId + "님 자동로그인", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(MainActivity.this, FirstMenuActivity.class);
                             startActivity(intent);

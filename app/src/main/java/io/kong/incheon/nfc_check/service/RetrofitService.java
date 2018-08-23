@@ -11,8 +11,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RetrofitService {
-    @GET("{table}")
-    Call<ResponseBody> subject_table(@Path("table") String table);
+    @GET("subject_table")
+    Call<ResponseBody> subject_table(@Query("sbj_division") String sbj_division, @Query("sbj_category") String sbj_category, @Query("sbj_name") String sbj_name);
 
     @GET("user_table")
     Call<List<UserItem>> login(@Query("user_id") String user_id, @Query("user_pw") String user_pw);
