@@ -45,12 +45,15 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
 
     private Retrofit retrofit;
     JSONObject item;
+    JSONArray jsonArray;
 
     String user_id;
     String stName;
     String stDay;
     String stIndex;
     String stProfessor;
+
+    boolean doubleCheck = true;
 
     String[] dbGetDayArr = new String[1];
     String[] stGetDayArr = new String[1];
@@ -126,53 +129,55 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
                                         String result = response.body().string();
                                         try {
                                             JSONObject jsonObject = new JSONObject(result);
-                                            JSONArray jsonArray = jsonObject.getJSONArray("person_subject");
+                                            jsonArray = jsonObject.getJSONArray("person_subject");
                                             if (jsonArray.length() == 0) {
                                                 insertPersonSubject();
                                             }
                                             for (int i = 0; i < jsonArray.length(); i++) {
 
-                                                item = jsonArray.getJSONObject(i);
-                                                String dbGetDay = item.getString("sbj_day");
-                                                int dbPos = dbGetDay.indexOf(",");
-                                                dbGetDayArr = dbGetDay.split(",");
+                                                if (doubleCheck) {
+                                                    item = jsonArray.getJSONObject(i);
+                                                    String dbGetDay = item.getString("sbj_day");
+                                                    int dbPos = dbGetDay.indexOf(",");
+                                                    dbGetDayArr = dbGetDay.split(",");
 
-                                                int stPos = stDay.indexOf(",");
-                                                stGetDayArr = stDay.split(",");
+                                                    int stPos = stDay.indexOf(",");
+                                                    stGetDayArr = stDay.split(",");
 
-                                                if (stDay.equals(dbGetDay)) {
-                                                    Toast.makeText(context.getApplicationContext(), "시간이 중복됩니다.", Toast.LENGTH_SHORT).show();
+                                                    if (stDay.equals(dbGetDay)) {
+                                                        Toast.makeText(context.getApplicationContext(), "시간이 중복됩니다.", Toast.LENGTH_SHORT).show();
 
-                                                } else if ((Integer.toString(dbPos) != "-1") && (Integer.toString(stPos) != "-1")) {
-                                                    String[] DBfirDay = dbGetDayArr[0].split(" ");
-                                                    String[] DBsecDay = dbGetDayArr[1].split(" ");
+                                                    } else if ((Integer.toString(dbPos) != "-1") && (Integer.toString(stPos) != "-1")) {
+                                                        String[] DBfirDay = dbGetDayArr[0].split(" ");
+                                                        String[] DBsecDay = dbGetDayArr[1].split(" ");
 
-                                                    String[] stFirDay = stGetDayArr[0].split(" ");
-                                                    String[] stSecDay = stGetDayArr[1].split(" ");
+                                                        String[] stFirDay = stGetDayArr[0].split(" ");
+                                                        String[] stSecDay = stGetDayArr[1].split(" ");
 
-                                                    weekConfirmTest(DBfirDay, DBsecDay, stFirDay, stSecDay);
+                                                        weekConfirmTest(DBfirDay, DBsecDay, stFirDay, stSecDay, i);
 
-                                                } else if ((Integer.toString(dbPos) != "-1") && (Integer.toString(stPos) == "-1")) {
-                                                    String[] DBfirDay = dbGetDayArr[0].split(" ");
-                                                    String[] DBsecDay = dbGetDayArr[1].split(" ");
+                                                    } else if ((Integer.toString(dbPos) != "-1") && (Integer.toString(stPos) == "-1")) {
+                                                        String[] DBfirDay = dbGetDayArr[0].split(" ");
+                                                        String[] DBsecDay = dbGetDayArr[1].split(" ");
 
-                                                    String[] singleDay = stDay.split(" ");
+                                                        String[] singleDay = stDay.split(" ");
 
-                                                    weekConfirmTest(DBfirDay, DBsecDay, singleDay, null);
+                                                        weekConfirmTest(DBfirDay, DBsecDay, singleDay, null, i);
 
-                                                } else if ((Integer.toString(dbPos) == "-1") && (Integer.toString(stPos) != "-1")) {
-                                                    String[] DBsingleDay = dbGetDay.split(" ");
+                                                    } else if ((Integer.toString(dbPos) == "-1") && (Integer.toString(stPos) != "-1")) {
+                                                        String[] DBsingleDay = dbGetDay.split(" ");
 
-                                                    String[] stFirDay = stGetDayArr[0].split(" ");
-                                                    String[] stSecDay = stGetDayArr[0].split(" ");
+                                                        String[] stFirDay = stGetDayArr[0].split(" ");
+                                                        String[] stSecDay = stGetDayArr[0].split(" ");
 
-                                                    weekConfirmTest(DBsingleDay, null, stFirDay, stSecDay);
-                                                } else {
-                                                    String[] DBsingleDay = dbGetDay.split(" ");
+                                                        weekConfirmTest(DBsingleDay, null, stFirDay, stSecDay, i);
+                                                    } else {
+                                                        String[] DBsingleDay = dbGetDay.split(" ");
 
-                                                    String[] singleDay = stDay.split(" ");
+                                                        String[] singleDay = stDay.split(" ");
 
-                                                    weekConfirmTest(DBsingleDay, null, singleDay, null);
+                                                        weekConfirmTest(DBsingleDay, null, singleDay, null, i);
+                                                    }
                                                 }
                                             }
 
@@ -203,72 +208,82 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
 
     }
 
-    public void weekConfirmTest(String[] DBdayArr1, String[] DBdayArr2, String[] STdayArr1, String[] STdayArr2) {
+    public void weekConfirmTest(String[] DBdayArr1, String[] DBdayArr2, String[] STdayArr1, String[] STdayArr2, int i) {
         if (DBdayArr2 == null && STdayArr2 == null) {
             if(DBdayArr1[0].equals(STdayArr1[0])) {
-                dayConfirmTest(DBdayArr1, null, STdayArr1, null);
+                dayConfirmTest(DBdayArr1, null, STdayArr1, null, i);
             } else {
                 insertPersonSubject();
             }
         } else if (STdayArr2 == null) {
             if (DBdayArr1[0].equals(STdayArr1[0]) || DBdayArr2[0].equals(STdayArr1[0])) {
-                dayConfirmTest(DBdayArr1, DBdayArr2, STdayArr1, null);
+                dayConfirmTest(DBdayArr1, DBdayArr2, STdayArr1, null, i);
             } else {
                 insertPersonSubject();
             }
         } else if (DBdayArr2 == null) {
             if(DBdayArr1[0].equals(STdayArr1[0]) || DBdayArr1[0].equals(STdayArr2[0])) {
-                dayConfirmTest(DBdayArr1, null, STdayArr1, STdayArr2);
+                dayConfirmTest(DBdayArr1, null, STdayArr1, STdayArr2, i);
             } else {
                 insertPersonSubject();
             }
         } else {
             if (DBdayArr1[0].equals(STdayArr1[0]) || DBdayArr1[0].equals(STdayArr2[0]) || DBdayArr2[0].equals(STdayArr1[0]) || DBdayArr2[0].equals(STdayArr2[0])) {
-                dayConfirmTest(DBdayArr1, DBdayArr2, STdayArr1, STdayArr2);
+                dayConfirmTest(DBdayArr1, DBdayArr2, STdayArr1, STdayArr2, i);
             } else {
                 insertPersonSubject();
             }
         }
     }
 
-    public void dayConfirmTest(String[] DBdayArr1, String[] DBdayArr2, String[] STdayArr1, String[] STdayArr2) {
+    public void dayConfirmTest(String[] DBdayArr1, String[] DBdayArr2, String[] STdayArr1, String[] STdayArr2, int i) {
         if (DBdayArr2 == null && STdayArr2 == null) {
-                overlapSearchTest(DBdayArr1, STdayArr1);
+                overlapSearchTest(DBdayArr1, STdayArr1, i);
         } else if (STdayArr2 == null) {
             if (DBdayArr1[0].equals(STdayArr1[0])) {
-                overlapSearchTest(DBdayArr1, STdayArr1);
+                overlapSearchTest(DBdayArr1, STdayArr1, i);
             } else {
-                overlapSearchTest(DBdayArr2, STdayArr1);
+                overlapSearchTest(DBdayArr2, STdayArr1, i);
             }
         } else if (DBdayArr2 == null) {
             if (DBdayArr1[0].equals(STdayArr1[0])) {
-                overlapSearchTest(DBdayArr1, STdayArr1);
+                overlapSearchTest(DBdayArr1, STdayArr1, i);
             } else {
-                overlapSearchTest(DBdayArr1, STdayArr2);
+                overlapSearchTest(DBdayArr1, STdayArr2, i);
             }
         } else {
             if (DBdayArr1[0].equals(STdayArr1[0])) {
-                overlapSearchTest(DBdayArr1, STdayArr1);
+                overlapSearchTest(DBdayArr1, STdayArr1, i);
             } else if (DBdayArr1[0].equals(STdayArr2[0])) {
-                overlapSearchTest(DBdayArr1, STdayArr2);
+                overlapSearchTest(DBdayArr1, STdayArr2, i);
             } else if (DBdayArr2[0].equals(STdayArr1[0])) {
-                overlapSearchTest(DBdayArr2, STdayArr1);
+                overlapSearchTest(DBdayArr2, STdayArr1, i);
             } else {
-                overlapSearchTest(DBdayArr2, STdayArr2);
+                overlapSearchTest(DBdayArr2, STdayArr2, i);
             }
         }
 
     }
 
-    public void overlapSearchTest(String[] DBdayArr, String[] STdayArr) {
+    public void overlapSearchTest(String[] DBdayArr, String[] STdayArr, int i) {
         Loop: for (int x = 1; x < DBdayArr.length; x++) {
             for (int y = 1; y < DBdayArr.length; y++) {
-                if (DBdayArr[x].equals(STdayArr[y])) {
-                    Toast.makeText(context.getApplicationContext(), "시간이 중복됩니다.", Toast.LENGTH_SHORT).show();
-                    break Loop;
+                if (i == jsonArray.length()) {
+                    if (DBdayArr[x].equals(STdayArr[y])) {
+                        doubleCheck = false;
+                        Toast.makeText(context.getApplicationContext(), "시간이 중복됩니다.", Toast.LENGTH_SHORT).show();
+                        break Loop;
+                    } else {
+                        doubleCheck = false;
+                        insertPersonSubject();
+                        break Loop;
+                    }
                 } else {
-                    insertPersonSubject();
-                    break Loop;
+                    if (DBdayArr[x].equals(STdayArr[y])) {
+                        doubleCheck = false;
+                        Toast.makeText(context.getApplicationContext(), "시간이 중복됩니다.", Toast.LENGTH_SHORT).show();
+                        break Loop;
+                    }
                 }
             }
 
