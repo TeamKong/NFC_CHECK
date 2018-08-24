@@ -39,9 +39,6 @@ public class MainActivity extends AppCompatActivity {
     String sPw;
     CheckBox autologin;
 
-//    Spinner spinner;
-//    ArrayAdapter sAdapter;
-
     static UserItem userItem;
 
     @Override
@@ -86,17 +83,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-//        sAdapter = ArrayAdapter.createFromResource(this, R.array.iden, android.R.layout.simple_spinner_dropdown_item);
-//        spinner.setAdapter(sAdapter);
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//
-//            }
-//
-//            public void onNothingSelected(AdapterView<?> parent) {
-//            }
-//        });
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -168,8 +154,6 @@ public class MainActivity extends AppCompatActivity {
         autologin = (CheckBox) findViewById(R.id.checkbox);
         sId = input_id.getText().toString();
         sPw = input_pass.getText().toString();
-
-//        spinner = (Spinner) findViewById(R.id.box_iden);
 
     }
 

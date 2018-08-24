@@ -2,6 +2,7 @@ package io.kong.incheon.nfc_check.activity;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 import io.kong.incheon.nfc_check.R;
 import io.kong.incheon.nfc_check.item.UserItem;
@@ -34,6 +36,8 @@ public class TimeTableActivity extends AppCompatActivity {
     static final String TAG = TimeTableActivity.class.getCanonicalName();
     static final String TAG_JSON = "person_subject";
     private Retrofit retrofit;
+    RetrofitService service;
+    Call<ResponseBody> call;
     JSONObject item;
 
     UserItem userItem;
@@ -42,8 +46,16 @@ public class TimeTableActivity extends AppCompatActivity {
 
     String user_id;
 
-    int sub[][] = new int[14][5];
-    TextView txtSub[][] = new TextView[14][5];
+    int sub[][] = new int[15][6];
+    TextView txtSub[][] = new TextView[15][6];
+    TextView txtMON;
+    TextView txtTUE;
+    TextView txtWED;
+    TextView txtTHU;
+    TextView txtFRI;
+    TextView txtSAT;
+    Calendar oCalendar;
+    String todayWeek;
     String[] dayArr = new String[1];
 
 
@@ -52,25 +64,8 @@ public class TimeTableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timetable);
 
-        userItem = new UserItem();
+        init();
 
-        for (int i = 1; i < 14; i++) {
-            for (int j = 0; j < 5; j++) {
-                sub[i][j] = getResources().getIdentifier("sub" + i + "_" + j, "id", "io.kong.incheon.nfc_check");
-                txtSub[i][j] = (TextView) findViewById(sub[i][j]);
-            }
-        }
-
-        user_id = userItem.getStid();
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl(TAG_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-
-        RetrofitService service = retrofit.create(RetrofitService.class);
-        Call<ResponseBody> call = service.person_subjectTable(user_id);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -130,6 +125,61 @@ public class TimeTableActivity extends AppCompatActivity {
 
     }
 
+    private void init() {
+
+        oCalendar = Calendar.getInstance( );
+
+        userItem = new UserItem();
+
+        for (int i = 1; i < 15; i++) {
+            for (int j = 0; j < 6; j++) {
+                sub[i][j] = getResources().getIdentifier("sub" + i + "_" + j, "id", "io.kong.incheon.nfc_check");
+                txtSub[i][j] = (TextView) findViewById(sub[i][j]);
+            }
+        }
+
+        user_id = userItem.getStid();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(TAG_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        service = retrofit.create(RetrofitService.class);
+        call = service.person_subjectTable(user_id);
+
+        txtMON = (TextView) findViewById(R.id.MON);
+        txtTUE = (TextView) findViewById(R.id.TUE);
+        txtWED = (TextView) findViewById(R.id.WED);
+        txtTHU = (TextView) findViewById(R.id.THU);
+        txtFRI = (TextView) findViewById(R.id.FRI);
+        txtSAT = (TextView) findViewById(R.id.SAT);
+
+        final String[] week = {"MON", "TUE", "WED", "THU", "FRI", "SAT" };
+        todayWeek = week[oCalendar.get(Calendar.DAY_OF_WEEK) - 2];
+
+        switch (todayWeek) {
+            case "MON":
+                setTextView(txtMON);
+                break;
+            case "TUE":
+                setTextView(txtTUE);
+                break;
+            case "WED":
+                setTextView(txtWED);
+                break;
+            case "THU":
+                setTextView(txtTHU);
+                break;
+            case "FRI":
+                setTextView(txtFRI);
+               break;
+            case "SAT":
+                setTextView(txtSAT);
+                break;
+        }
+    }
+
     public void gridTable(String[] dayArr, String stName) {
         int i;
         switch (dayArr[0]) {
@@ -153,16 +203,28 @@ public class TimeTableActivity extends AppCompatActivity {
                 i = 4;
                 gridTable2(dayArr, stName, i);
                 break;
+            case "토":
+                i = 5;
+                gridTable2(dayArr, stName, i);
+
         }
     }
 
     public void gridTable2(String[] dayArr, String stName, int i) {
         for (int x = 1; x < dayArr.length; x++) {
-            for (int y = 1; y < 14; y++) {
+            for (int y = 1; y < 15; y++) {
                 if (dayArr[x].equals(Integer.toString(y))) {
                     txtSub[y][i].setText(stName);
                 }
             }
         }
+    }
+
+    private void setTextView(TextView txtView) {
+        txtView.setTextSize(25);
+        txtView.setTypeface(null, Typeface.BOLD);
+        txtView.setTextColor(getResources().getColor(R.color.colorWeek));
+        txtView.setBackgroundColor(getResources().getColor(R.color.textColor));
+
     }
 }

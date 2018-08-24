@@ -41,6 +41,9 @@
         <item>전선</item>
         <item>전기</item>
         <item>전필</item>
+        <item>INU핵심자기주도</item>
+        <item>INU핵심창의융합</item>
+        <item>INU핵심글로컬</item>
     </string-array>
 
     <string-array name="category_culture">
@@ -48,10 +51,14 @@
         <item>교선</item>
         <item>교필</item>
         <item>교직</item>
+        <item>INU핵심자기주도</item>
+        <item>INU핵심창의융합</item>
+        <item>INU핵심글로컬</item>
     </string-array>
     
     <string-array name="category_major">
         <item>전체</item>
+        <item>교필</item>
         <item>전선</item>
         <item>전기</item>
         <item>전필</item>

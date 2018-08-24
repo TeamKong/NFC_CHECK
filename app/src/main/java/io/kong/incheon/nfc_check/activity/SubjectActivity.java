@@ -140,9 +140,7 @@ public class SubjectActivity extends AppCompatActivity{
                                 try {
                                     JSONObject jsonObject = new JSONObject(result);
                                     JSONArray jsonArray = jsonObject.getJSONArray("subject_table");
-                                    if(mArrayList == null) {
-                                        mArrayList = new ArrayList<ListViewBtnItem>();
-                                    }
+                                    mArrayList = new ArrayList<ListViewBtnItem>();
 
                                     for(int i = 0; i < jsonArray.length(); i++) {
 
