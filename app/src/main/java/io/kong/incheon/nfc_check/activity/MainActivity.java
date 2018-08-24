@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -21,7 +19,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.List;
@@ -32,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
     private Retrofit retrofit;
     public static SharedPreferences appData;
-    boolean saveLoginData;
     EditText input_id, input_pass;
     Button signin_btn, signup_btn;
     String sId;
@@ -50,39 +46,9 @@ public class MainActivity extends AppCompatActivity {
 
         appData = getSharedPreferences("APPDATA", MODE_PRIVATE);
         init();
-        load();
 
 
         //이전에 로그인을 저장한 이력이 있다면
-        if (saveLoginData) {
-
-            RetrofitService service = retrofit.create(RetrofitService.class);
-            Call<List<UserItem>> call = service.login(sId, sPw);
-
-            call.enqueue(new Callback<List<UserItem>>() {
-                @Override
-                public void onResponse(Call<List<UserItem>> call, Response<List<UserItem>> response) {
-
-                    if (response.isSuccessful()) {
-                        if (response.body().toString() != "[]") {
-                            userItem.setStid(sId);
-                            userItem.setStPass(sPw);
-                            Toast.makeText(MainActivity.this, sId + "님 자동로그인", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MainActivity.this, FirstMenuActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<List<UserItem>> call, Throwable t) {
-                    Toast.makeText(MainActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -108,8 +74,9 @@ public class MainActivity extends AppCompatActivity {
                                         userItem.setStPass(sPw);
 
                                         Toast.makeText(MainActivity.this, userItem.getStid() + "님 환영합니다.", Toast.LENGTH_SHORT).show();
-
-                                        save();
+                                        if (autologin.isChecked()) {
+                                            save();
+                                        }
                                         Toast.makeText(MainActivity.this, response.body().toString(), Toast.LENGTH_SHORT).show();
 
                                         Intent intent = new Intent(MainActivity.this, FirstMenuActivity.class);
@@ -164,11 +131,5 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("ID", input_id.getText().toString().trim());
         editor.putString("PWD", input_pass.getText().toString().trim());
         editor.apply();
-    }
-
-    private void load() {
-        saveLoginData = appData.getBoolean("SAVE_LOGIN_DATA", false);
-        sId = appData.getString("ID", "");
-        sPw = appData.getString("PWD", "");
     }
 }
