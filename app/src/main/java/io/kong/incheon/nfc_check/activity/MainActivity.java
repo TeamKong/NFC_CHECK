@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import io.kong.incheon.nfc_check.R;
 import io.kong.incheon.nfc_check.item.UserItem;
 import io.kong.incheon.nfc_check.service.RetrofitService;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,6 +23,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.List;
 
 import static io.kong.incheon.nfc_check.service.RetrofitService.TAG_URL;
@@ -61,18 +68,37 @@ public class MainActivity extends AppCompatActivity {
                         sPw = input_pass.getText().toString();
 
                         RetrofitService service = retrofit.create(RetrofitService.class);
-                        Call<List<UserItem>> call = service.login(sId, sPw);
+                        Call<ResponseBody> call = service.login(sId, sPw);
 
 
-                        call.enqueue(new Callback<List<UserItem>>() {
+                        call.enqueue(new Callback<ResponseBody>() {
                             @Override
-                            public void onResponse(Call<List<UserItem>> call, Response<List<UserItem>> response) {
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                                 if (response.isSuccessful()) {
                                     if (response.body().toString() != "[]") {
+
+                                        try {
+                                            String result = response.body().string();
+                                            try {
+                                                JSONObject jsonObject = new JSONObject(result);
+                                                JSONArray jsonArray = jsonObject.getJSONArray("user_table");
+
+                                                for (int i = 0; i < jsonArray.length(); i++) {
+                                                    JSONObject item = jsonArray.getJSONObject(i);
+
+                                                    userItem.setUser_name(item.getString("user_name"));
+                                                    userItem.setUser_major(item.getString("user_major"));
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
                                         userItem.setStid(sId);
                                         userItem.setStPass(sPw);
-                                        Toast.makeText(MainActivity.this, userItem.getStid() + "님 환영합니다.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MainActivity.this, userItem.getUser_name() + "님 환영합니다.", Toast.LENGTH_SHORT).show();
                                         if (autologin.isChecked()) {
                                             save();
                                         }
@@ -86,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onFailure(Call<List<UserItem>> call, Throwable t) {
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
                                 Toast.makeText(MainActivity.this, R.string.db_failure, Toast.LENGTH_SHORT).show();
                             }
                         });

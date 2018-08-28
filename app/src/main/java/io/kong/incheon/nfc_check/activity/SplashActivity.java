@@ -10,10 +10,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.List;
 
 import io.kong.incheon.nfc_check.item.UserItem;
 import io.kong.incheon.nfc_check.service.RetrofitService;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,17 +55,35 @@ public class SplashActivity extends Activity {
 
         if (saveLoginData) {
             RetrofitService service = retrofit.create(RetrofitService.class);
-            Call<List<UserItem>> call = service.login(sId, sPw);
+            Call<ResponseBody> call = service.login(sId, sPw);
 
-            call.enqueue(new Callback<List<UserItem>>() {
+            call.enqueue(new Callback<ResponseBody>() {
                 @Override
-                public void onResponse(Call<List<UserItem>> call, Response<List<UserItem>> response) {
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                     if (response.isSuccessful()) {
                         if (response.body().toString() != "[]") {
+                            try {
+                                String result = response.body().string();
+                                try {
+                                    JSONObject jsonObject = new JSONObject(result);
+                                    JSONArray jsonArray = jsonObject.getJSONArray("user_table");
+
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject item = jsonArray.getJSONObject(i);
+
+                                        userItem.setUser_name(item.getString("user_name"));
+                                        userItem.setUser_major(item.getString("user_major"));
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                             userItem.setStid(sId);
                             userItem.setStPass(sPw);
-                            Toast.makeText(SplashActivity.this, sId + "님 자동로그인", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SplashActivity.this, userItem.getUser_name() + "님 환영합니다.", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(SplashActivity.this, FirstMenuActivity.class);
                             startActivity(intent);
                             finish();
@@ -70,7 +94,7 @@ public class SplashActivity extends Activity {
                 }
 
                 @Override
-                public void onFailure(Call<List<UserItem>> call, Throwable t) {
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
                     Toast.makeText(SplashActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
                 }
             });

@@ -15,6 +15,7 @@ import java.io.IOException;
 import io.kong.incheon.nfc_check.R;
 import io.kong.incheon.nfc_check.item.NFCItem;
 import io.kong.incheon.nfc_check.item.TimeItem;
+import io.kong.incheon.nfc_check.item.UserItem;
 
 //NFC 태그 값을 출력하는 코드입니다.
 //학생이 태그에 핸드폰을 접촉하면 출석이 되는 형식
@@ -31,6 +32,9 @@ public class NfcActivity extends Activity {
     private NfcAdapter nfcAdapter;
     private PendingIntent pendingIntent;
     public static String tagNum = null;
+    private TextView tagUserName;
+    private TextView tagUserId;
+    private TextView tagUserMajor;
     private TextView tagDesc;
     private TextView noticetxt;
 
@@ -38,8 +42,18 @@ public class NfcActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nfc);
+
+        tagUserName = findViewById(R.id.student_name);
+        tagUserId = findViewById(R.id.student_number);
         noticetxt = findViewById(R.id.notice_txt);
         tagDesc = findViewById(R.id.tagDesc);
+        tagUserMajor = findViewById(R.id.student_major);
+
+        tagUserName.setText(UserItem.getUser_name());
+        tagUserId.setText(UserItem.getStid());
+        tagUserMajor.setText(UserItem.getUser_major());
+
+
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         Intent intent = new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
@@ -105,7 +119,7 @@ public class NfcActivity extends Activity {
     }
 
     public void NoticePrint(TextView text) {
-        text.setText("출석이 완료 되었습니다. 누적을 위해 태그에 계속 접촉해주세요.");
+        text.setText("출석이 완료 되었습니다. \n누적을 위해 태그에 계속 접촉해주세요.");
     }
 
 }

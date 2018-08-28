@@ -17,7 +17,7 @@ public interface RetrofitService {
     Call<ResponseBody> subject_table(@Query("sbj_division") String sbj_division, @Query("sbj_category") String sbj_category, @Query("sbj_name") String sbj_name);
 
     @GET("user_table")
-    Call<List<UserItem>> login(@Query("user_id") String user_id, @Query("user_pw") String user_pw);
+    Call<ResponseBody> login(@Query("user_id") String user_id, @Query("user_pw") String user_pw);
 
     @POST("join")
     Call<ResponseBody> join(@Query("user_id") String user_id, @Query("user_pw") String user_pw, @Query("user_university") String user_university,
