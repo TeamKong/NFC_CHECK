@@ -1,7 +1,10 @@
 package io.kong.incheon.nfc_check.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,6 +20,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Random;
 
 import io.kong.incheon.nfc_check.R;
 import io.kong.incheon.nfc_check.item.UserItem;
@@ -56,6 +60,7 @@ public class TimeTableActivity extends AppCompatActivity {
     TextView txtSAT;
     Calendar oCalendar;
     String todayWeek;
+    int weekNumber;
     String[] dayArr = new String[1];
 
 
@@ -65,6 +70,82 @@ public class TimeTableActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timetable);
 
         init();
+
+        btnFAB = (FloatingActionButton) findViewById(R.id.btnFAB);
+        btnFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TimeTableActivity.this, SubjectActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+    }
+
+    private void init() {
+
+        oCalendar = Calendar.getInstance();
+
+        userItem = new UserItem();
+
+        for (int i = 1; i < 15; i++) {
+            for (int j = 0; j < 6; j++) {
+                sub[i][j] = getResources().getIdentifier("sub" + i + "_" + j, "id", "io.kong.incheon.nfc_check");
+                txtSub[i][j] = (TextView) findViewById(sub[i][j]);
+            }
+        }
+
+        user_id = userItem.getStid();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(TAG_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        service = retrofit.create(RetrofitService.class);
+        call = service.person_subjectTable(user_id);
+
+        txtMON = (TextView) findViewById(R.id.MON);
+        txtTUE = (TextView) findViewById(R.id.TUE);
+        txtWED = (TextView) findViewById(R.id.WED);
+        txtTHU = (TextView) findViewById(R.id.THU);
+        txtFRI = (TextView) findViewById(R.id.FRI);
+        txtSAT = (TextView) findViewById(R.id.SAT);
+
+        final String[] week = {"MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"};
+        todayWeek = week[oCalendar.get(Calendar.DAY_OF_WEEK) - 2];
+
+
+        switch (todayWeek) {
+            case "MON":
+                weekNumber = 0;
+                setTextView(txtMON, weekNumber);
+                break;
+            case "TUE":
+                weekNumber = 1;
+                setTextView(txtTUE, weekNumber);
+                break;
+            case "WED":
+                weekNumber = 2;
+                setTextView(txtWED, weekNumber);
+                break;
+            case "THU":
+                weekNumber = 3;
+                setTextView(txtTHU, weekNumber);
+                break;
+            case "FRI":
+                weekNumber = 4;
+                setTextView(txtFRI, weekNumber);
+                break;
+            case "SAT":
+                weekNumber = 5;
+                setTextView(txtSAT, weekNumber);
+                break;
+            case "SUN":
+                weekNumber = 6;
+
+        }
 
 
         call.enqueue(new Callback<ResponseBody>() {
@@ -112,72 +193,6 @@ public class TimeTableActivity extends AppCompatActivity {
                 Toast.makeText(TimeTableActivity.this, R.string.db_failure, Toast.LENGTH_SHORT).show();
             }
         });
-
-        btnFAB = (FloatingActionButton) findViewById(R.id.btnFAB);
-        btnFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(TimeTableActivity.this, SubjectActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-    }
-
-    private void init() {
-
-        oCalendar = Calendar.getInstance( );
-
-        userItem = new UserItem();
-
-        for (int i = 1; i < 15; i++) {
-            for (int j = 0; j < 6; j++) {
-                sub[i][j] = getResources().getIdentifier("sub" + i + "_" + j, "id", "io.kong.incheon.nfc_check");
-                txtSub[i][j] = (TextView) findViewById(sub[i][j]);
-            }
-        }
-
-        user_id = userItem.getStid();
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl(TAG_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        service = retrofit.create(RetrofitService.class);
-        call = service.person_subjectTable(user_id);
-
-        txtMON = (TextView) findViewById(R.id.MON);
-        txtTUE = (TextView) findViewById(R.id.TUE);
-        txtWED = (TextView) findViewById(R.id.WED);
-        txtTHU = (TextView) findViewById(R.id.THU);
-        txtFRI = (TextView) findViewById(R.id.FRI);
-        txtSAT = (TextView) findViewById(R.id.SAT);
-
-        final String[] week = {"MON", "TUE", "WED", "THU", "FRI", "SAT" };
-        todayWeek = week[oCalendar.get(Calendar.DAY_OF_WEEK) - 2];
-
-        switch (todayWeek) {
-            case "MON":
-                setTextView(txtMON);
-                break;
-            case "TUE":
-                setTextView(txtTUE);
-                break;
-            case "WED":
-                setTextView(txtWED);
-                break;
-            case "THU":
-                setTextView(txtTHU);
-                break;
-            case "FRI":
-                setTextView(txtFRI);
-               break;
-            case "SAT":
-                setTextView(txtSAT);
-                break;
-        }
     }
 
     public void gridTable(String[] dayArr, String stName) {
@@ -210,21 +225,68 @@ public class TimeTableActivity extends AppCompatActivity {
         }
     }
 
-    public void gridTable2(String[] dayArr, String stName, int i) {
+    public void gridTable2(String[] dayArr, final String stName, int i) {
         for (int x = 1; x < dayArr.length; x++) {
             for (int y = 1; y < 15; y++) {
                 if (dayArr[x].equals(Integer.toString(y))) {
                     txtSub[y][i].setText(stName);
+                    txtSub[y][i].setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            AlertDialog.Builder oDialog = new AlertDialog.Builder(TimeTableActivity.this);
+                            oDialog.setMessage(stName + "과목을 삭제하시겠습니까?")
+                                    .setCancelable(false)
+                                    .setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            call = service.person_delete(user_id, stName);
+                                            call.enqueue(new Callback<ResponseBody>() {
+                                                @Override
+                                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                    if (response.isSuccessful()) {
+                                                        if (!response.body().toString().equals("[]")) {
+                                                            Intent intent = new Intent(TimeTableActivity.this, TimeTableActivity.class);
+                                                            startActivity(intent);
+                                                            finish();
+                                                        }
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                                                }
+                                            });
+                                        }
+                                    })
+                                    .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.cancel();
+                                        }
+                                    });
+
+                            AlertDialog dialog = oDialog.create();
+                            dialog.show();
+                        }
+                    });
                 }
             }
         }
     }
 
-    private void setTextView(TextView txtView) {
+    private void setTextView(TextView txtView, int weekNumber) {
         txtView.setTextSize(25);
         txtView.setTypeface(null, Typeface.BOLD);
         txtView.setTextColor(getResources().getColor(R.color.colorWeek));
         txtView.setBackgroundColor(getResources().getColor(R.color.textColor));
+
+
+        for (int i = 1; i < 15; i++) {
+                sub[i][weekNumber] = getResources().getIdentifier("sub" + i + "_" + weekNumber, "id", "io.kong.incheon.nfc_check");
+                txtSub[i][weekNumber] = (TextView) findViewById(sub[i][weekNumber]);
+                txtSub[i][weekNumber].setBackgroundColor(getResources().getColor(R.color.colorSubWeek));
+        }
 
     }
 }

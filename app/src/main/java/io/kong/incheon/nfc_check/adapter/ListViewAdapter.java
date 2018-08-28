@@ -149,7 +149,6 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
                                                     Toast.makeText(context.getApplicationContext(), "같은 과목은 시간표에 입력이 불가합니다.", Toast.LENGTH_SHORT).show();
                                                     doubleCheck = false;
                                                 } else {
-
                                                     if (stDay.equals(dbGetDay)) {
                                                         Toast.makeText(context.getApplicationContext(), "시간이 중복됩니다.", Toast.LENGTH_SHORT).show();
                                                         doubleCheck = false;

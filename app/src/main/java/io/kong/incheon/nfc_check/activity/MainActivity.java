@@ -72,13 +72,10 @@ public class MainActivity extends AppCompatActivity {
                                     if (response.body().toString() != "[]") {
                                         userItem.setStid(sId);
                                         userItem.setStPass(sPw);
-
                                         Toast.makeText(MainActivity.this, userItem.getStid() + "님 환영합니다.", Toast.LENGTH_SHORT).show();
                                         if (autologin.isChecked()) {
                                             save();
                                         }
-                                        Toast.makeText(MainActivity.this, response.body().toString(), Toast.LENGTH_SHORT).show();
-
                                         Intent intent = new Intent(MainActivity.this, FirstMenuActivity.class);
                                         startActivity(intent);
                                         finish();

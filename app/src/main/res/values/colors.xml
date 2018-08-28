@@ -5,5 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="textColor">#ffffff</color>
     <color name="color_menu">#3F51B5</color>
-    <color name="colorWeek">#8ec7ff</color>
+    <color name="colorWeek">#FF6CA0E1</color>
+    <color name="colorSubWeek">#b1e7ff</color>
 </resources>

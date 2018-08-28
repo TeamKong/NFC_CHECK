@@ -11,6 +11,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RetrofitService {
+    static final String TAG_URL = "http://13.209.207.99:3000";
+
     @GET("subject_table")
     Call<ResponseBody> subject_table(@Query("sbj_division") String sbj_division, @Query("sbj_category") String sbj_category, @Query("sbj_name") String sbj_name);
 
@@ -28,5 +30,7 @@ public interface RetrofitService {
     @GET("person_subjectTable")
     Call<ResponseBody> person_subjectTable(@Query("user_id") String user_id);
 
-    static final String TAG_URL = "http://13.209.207.99:3000";
+    @GET("person_subject/delete")
+    Call<ResponseBody> person_delete(@Query("user_id") String user_id, @Query("sbj_name") String sbj_name);
+
 }
