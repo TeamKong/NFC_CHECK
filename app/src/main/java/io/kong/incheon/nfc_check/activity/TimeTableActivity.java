@@ -1,10 +1,9 @@
 package io.kong.incheon.nfc_check.activity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,13 +13,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tsengvn.typekit.TypekitContextWrapper;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.Random;
 
 import io.kong.incheon.nfc_check.R;
 import io.kong.incheon.nfc_check.item.UserItem;
@@ -67,9 +67,22 @@ public class TimeTableActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FullScreenView fullScreenView = new FullScreenView();
+        fullScreenView.screenView(this);
         setContentView(R.layout.activity_timetable);
 
         init();
+
+        Bundle getIntent = getIntent().getExtras();
+
+        if(getIntent != null) {
+            String intentInput = getIntent.getString("input");
+            if (intentInput.equals("insert")) {
+                Toast.makeText(TimeTableActivity.this, "추가완료", Toast.LENGTH_SHORT).show();
+            } else if (intentInput.equals("delete")) {
+                Toast.makeText(TimeTableActivity.this, "삭제완료", Toast.LENGTH_SHORT).show();
+            }
+        }
 
         btnFAB = (FloatingActionButton) findViewById(R.id.btnFAB);
         btnFAB.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +94,20 @@ public class TimeTableActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase){
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(TimeTableActivity.this, FirstMenuActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void init() {
@@ -246,6 +273,7 @@ public class TimeTableActivity extends AppCompatActivity {
                                                     if (response.isSuccessful()) {
                                                         if (!response.body().toString().equals("[]")) {
                                                             Intent intent = new Intent(TimeTableActivity.this, TimeTableActivity.class);
+                                                            intent.putExtra("input", "delete");
                                                             startActivity(intent);
                                                             finish();
                                                         }
@@ -276,7 +304,7 @@ public class TimeTableActivity extends AppCompatActivity {
     }
 
     private void setTextView(TextView txtView, int weekNumber) {
-        txtView.setTextSize(25);
+        txtView.setTextSize(20);
         txtView.setTypeface(null, Typeface.BOLD);
         txtView.setTextColor(getResources().getColor(R.color.colorWeek));
         txtView.setBackgroundColor(getResources().getColor(R.color.textColor));

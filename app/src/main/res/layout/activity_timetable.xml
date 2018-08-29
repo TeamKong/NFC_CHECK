@@ -6,11 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".activity.TimeTableActivity">
 
+    <LinearLayout
+        android:id="@+id/layoutSubTable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="학업시간표"
+            android:textSize="50dp"
+            android:textColor="@color/colorWeek"/>
+
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutSubTable">
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -525,8 +538,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginRight="10dp"
-            android:backgroundTint="#FFFFFF"
             android:elevation="2dp"
-            android:src="@mipmap/ic_add_second"/>
+            android:src="@drawable/baseline_add"
+            app:backgroundTint="@color/colorWeek" />
     </LinearLayout>
 </RelativeLayout>

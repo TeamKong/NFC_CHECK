@@ -1,5 +1,6 @@
 package io.kong.incheon.nfc_check.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import io.kong.incheon.nfc_check.R;
 import io.kong.incheon.nfc_check.service.RetrofitService;
@@ -89,6 +92,12 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void attachBaseContext(Context newBase){
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
 
     private void init() {
 

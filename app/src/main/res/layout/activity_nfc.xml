@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:text="스마트 출결"
             android:textColor="@color/colorWeek"
+            android:textStyle="bold"
             android:textSize="30dp" />
     </LinearLayout>
 

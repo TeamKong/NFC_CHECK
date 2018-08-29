@@ -1,6 +1,7 @@
 package io.kong.incheon.nfc_check.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -74,13 +77,18 @@ public class PopupActivity extends Activity {
             Log.i("first And Second : ", "" + first + "," + timeItem.getSecondTime() + ", TimeRiver: " + TimeRiver + ", Minus:" + String.valueOf(first - timeItem.getSecondTime()));
 
             if (TimeRiver < 60) {
-                txtText.setText("누적시간 " + TimeRiver + "초가 지난 뒤 NFC TAG 접촉을 해제");
+                txtText.setText(R.string.time + TimeRiver + "초가 지난 뒤 NFC TAG 접촉을 해제");
             } else if (TimeRiver % 60 == 0) {
-                txtText.setText("누적시간 " + TimeRiver / 60 + "분이 지난 뒤 NFC TAG 접촉을 해제");
+                txtText.setText(R.string.time + TimeRiver / 60 + "분이 지난 뒤 NFC TAG 접촉을 해제");
             } else if (TimeRiver >= 60) {
-                txtText.setText("누적시간 " + TimeRiver / 60 + "분 " + TimeRiver % 60 + "초가 지난 뒤 NFC TAG 접촉을 해제");
+                txtText.setText(R.string.time + TimeRiver / 60 + "분 " + TimeRiver % 60 + "초가 지난 뒤 NFC TAG 접촉을 해제");
             }
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase){
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
     }
 
     //확인 버튼 클릭

@@ -42,7 +42,8 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        FullScreenView fullScreenView = new FullScreenView();
+        fullScreenView.screenView(this);
         appData = getSharedPreferences("APPDATA", MODE_PRIVATE);
         init();
         load();

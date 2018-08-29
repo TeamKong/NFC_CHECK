@@ -2,6 +2,7 @@ package io.kong.incheon.nfc_check.activity;
 
 import android.app.Activity;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
@@ -9,6 +10,8 @@ import android.nfc.tech.Ndef;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import java.io.IOException;
 
@@ -41,11 +44,12 @@ public class NfcActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FullScreenView fullScreenView = new FullScreenView();
+        fullScreenView.screenView(this);
         setContentView(R.layout.activity_nfc);
 
         tagUserName = findViewById(R.id.student_name);
         tagUserId = findViewById(R.id.student_number);
-        noticetxt = findViewById(R.id.notice_txt);
         tagDesc = findViewById(R.id.tagDesc);
         tagUserMajor = findViewById(R.id.student_major);
 
@@ -57,6 +61,11 @@ public class NfcActivity extends Activity {
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         Intent intent = new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase){
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
     }
 
     @Override
@@ -88,7 +97,6 @@ public class NfcActivity extends Activity {
 
         try {
             ndefTag.connect();
-            NoticePrint(noticetxt);
 
             while (ndefTag.isConnected()) {
             }
@@ -118,8 +126,5 @@ public class NfcActivity extends Activity {
         return sb.toString();
     }
 
-    public void NoticePrint(TextView text) {
-        text.setText("출석이 완료 되었습니다. \n누적을 위해 태그에 계속 접촉해주세요.");
-    }
 
 }

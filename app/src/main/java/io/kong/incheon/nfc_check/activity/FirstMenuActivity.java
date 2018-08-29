@@ -7,21 +7,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import io.kong.incheon.nfc_check.R;
+import io.kong.incheon.nfc_check.service.BackPressCloseHandler;
 
 public class FirstMenuActivity extends AppCompatActivity{
     public static Activity firstMenuActivity;
+    private BackPressCloseHandler backPressCloseHandler;
 
     Button btnCheck;
     Button btnCheckList;
     Button btnTimetable;
     Button btnSetting;
+    Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FullScreenView fullScreenView = new FullScreenView();
+        fullScreenView.screenView(this);
         setContentView(R.layout.activity_firstmenu);
+
+        backPressCloseHandler = new BackPressCloseHandler(this);
 
         firstMenuActivity = FirstMenuActivity.this;
 
@@ -62,5 +70,11 @@ public class FirstMenuActivity extends AppCompatActivity{
         btnCheckList.setOnClickListener(listener);
         btnTimetable.setOnClickListener(listener);
         btnSetting.setOnClickListener(listener);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        backPressCloseHandler.onBackPressed();
     }
 }

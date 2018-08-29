@@ -1,10 +1,10 @@
 package io.kong.incheon.nfc_check.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -22,13 +22,13 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.widget.Toast;
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.List;
 
 import static io.kong.incheon.nfc_check.service.RetrofitService.TAG_URL;
 
@@ -45,10 +45,15 @@ public class MainActivity extends AppCompatActivity {
     static UserItem userItem;
 
     @Override
+    protected void attachBaseContext(Context newBase){
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        FullScreenView fullScreenView = new FullScreenView();
+        fullScreenView.screenView(this);
         setContentView(R.layout.activity_main);
 
         appData = getSharedPreferences("APPDATA", MODE_PRIVATE);

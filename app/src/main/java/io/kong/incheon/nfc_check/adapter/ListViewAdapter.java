@@ -57,6 +57,7 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
 
     String[] dbGetDayArr = new String[1];
     String[] stGetDayArr = new String[1];
+    String[] getDoubleCheck = new String[20];
 
     public ListViewAdapter(Context context, int resource, ArrayList<ListViewBtnItem> list) {
         super(context, resource, list);
@@ -96,6 +97,7 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
+        doubleCheck = true;
         View v = (View) view.getParent();
         final UserItem userItem = new UserItem();
 
@@ -120,7 +122,6 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
                 .setPositiveButton("추가", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        doubleCheck = true;
                         RetrofitService searchService = retrofit.create(RetrofitService.class);
                         Call<ResponseBody> searchCall = searchService.person_subjectTable(user_id);
                         searchCall.enqueue(new Callback<ResponseBody>() {
@@ -134,58 +135,66 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
                                         if (jsonArray.length() == 0) {
                                             insertPersonSubject();
                                         }
+                                        for (int j = 0; j < jsonArray.length(); j++) {
+
+                                            item = jsonArray.getJSONObject(j);
+                                            getDoubleCheck[j] = item.getString("sbj_name");
+                                            if (getDoubleCheck[j].equals(stName)) {
+                                                Toast.makeText(context.getApplicationContext(), "같은 과목은 시간표에 입력이 불가합니다.", Toast.LENGTH_SHORT).show();
+                                                doubleCheck = false;
+                                            }
+
+                                        }
+
                                         for (int i = 0; i < jsonArray.length(); i++) {
                                             if (doubleCheck) {
                                                 item = jsonArray.getJSONObject(i);
                                                 String dbGetDay = item.getString("sbj_day");
-                                                String dbGetName = item.getString("sbj_name");
+
                                                 int dbPos = dbGetDay.indexOf(",");
                                                 dbGetDayArr = dbGetDay.split(",");
 
                                                 int stPos = stDay.indexOf(",");
                                                 stGetDayArr = stDay.split(",");
 
-                                                if (stName.equals(dbGetName)) {
-                                                    Toast.makeText(context.getApplicationContext(), "같은 과목은 시간표에 입력이 불가합니다.", Toast.LENGTH_SHORT).show();
+                                                if (stDay.equals(dbGetDay)) {
+                                                    Toast.makeText(context.getApplicationContext(), "시간이 중복됩니다.", Toast.LENGTH_SHORT).show();
                                                     doubleCheck = false;
+                                                } else if (!(Integer.toString(dbPos).equals("-1")) && !(Integer.toString(stPos).equals("-1"))) {
+                                                    String[] DBfirDay = dbGetDayArr[0].split(" ");
+                                                    String[] DBsecDay = dbGetDayArr[1].split(" ");
+
+                                                    String[] stFirDay = stGetDayArr[0].split(" ");
+                                                    String[] stSecDay = stGetDayArr[1].split(" ");
+
+                                                    weekConfirmTest(DBfirDay, DBsecDay, stFirDay, stSecDay, i);
+
+                                                } else if (!(Integer.toString(dbPos).equals("-1")) && (Integer.toString(stPos).equals("-1"))) {
+                                                    String[] DBfirDay = dbGetDayArr[0].split(" ");
+                                                    String[] DBsecDay = dbGetDayArr[1].split(" ");
+
+                                                    String[] singleDay = stDay.split(" ");
+
+                                                    weekConfirmTest(DBfirDay, DBsecDay, singleDay, null, i);
+
+                                                } else if ((Integer.toString(dbPos).equals("-1")) && !(Integer.toString(stPos).equals("-1"))) {
+                                                    String[] DBsingleDay = dbGetDay.split(" ");
+
+                                                    String[] stFirDay = stGetDayArr[0].split(" ");
+                                                    String[] stSecDay = stGetDayArr[0].split(" ");
+
+                                                    weekConfirmTest(DBsingleDay, null, stFirDay, stSecDay, i);
                                                 } else {
-                                                    if (stDay.equals(dbGetDay)) {
-                                                        Toast.makeText(context.getApplicationContext(), "시간이 중복됩니다.", Toast.LENGTH_SHORT).show();
-                                                        doubleCheck = false;
-                                                    } else if (!(Integer.toString(dbPos).equals("-1")) && !(Integer.toString(stPos).equals("-1"))) {
-                                                        String[] DBfirDay = dbGetDayArr[0].split(" ");
-                                                        String[] DBsecDay = dbGetDayArr[1].split(" ");
+                                                    String[] DBsingleDay = dbGetDay.split(" ");
 
-                                                        String[] stFirDay = stGetDayArr[0].split(" ");
-                                                        String[] stSecDay = stGetDayArr[1].split(" ");
+                                                    String[] singleDay = stDay.split(" ");
 
-                                                        weekConfirmTest(DBfirDay, DBsecDay, stFirDay, stSecDay, i);
+                                                    weekConfirmTest(DBsingleDay, null, singleDay, null, i);
 
-                                                    } else if (!(Integer.toString(dbPos).equals("-1")) && (Integer.toString(stPos).equals("-1"))) {
-                                                        String[] DBfirDay = dbGetDayArr[0].split(" ");
-                                                        String[] DBsecDay = dbGetDayArr[1].split(" ");
-
-                                                        String[] singleDay = stDay.split(" ");
-
-                                                        weekConfirmTest(DBfirDay, DBsecDay, singleDay, null, i);
-
-                                                    } else if ((Integer.toString(dbPos).equals("-1")) && !(Integer.toString(stPos).equals("-1"))) {
-                                                        String[] DBsingleDay = dbGetDay.split(" ");
-
-                                                        String[] stFirDay = stGetDayArr[0].split(" ");
-                                                        String[] stSecDay = stGetDayArr[0].split(" ");
-
-                                                        weekConfirmTest(DBsingleDay, null, stFirDay, stSecDay, i);
-                                                    } else {
-                                                        String[] DBsingleDay = dbGetDay.split(" ");
-
-                                                        String[] singleDay = stDay.split(" ");
-
-                                                        weekConfirmTest(DBsingleDay, null, singleDay, null, i);
-                                                    }
                                                 }
                                             }
                                         }
+
 
                                     } catch (JSONException e) {
                                         Log.d(TAG, "showResult : ", e);
@@ -306,10 +315,10 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(context.getApplicationContext(), "추가완료", Toast.LENGTH_SHORT).show();
                     SubjectActivity subjectActivity = (SubjectActivity) SubjectActivity.subjectActivity;
                     doubleCheck = false;
                     Intent intent = new Intent(subjectActivity, TimeTableActivity.class);
+                    intent.putExtra("input", "insert");
                     subjectActivity.startActivity(intent);
                     subjectActivity.finish();
                 }

@@ -18,7 +18,7 @@
         <item name="android:layout_margin">1dp</item>
         <item name="android:background">#FFFFFF</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">18dp</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:background" tools:ignore="DuplicateDefinition"> @color/colorWeek</item>
     </style>
@@ -30,7 +30,7 @@
         <item name="android:layout_margin">1dp</item>
         <item name="android:background">#FFFFFF</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">15dp</item>
+        <item name="android:textSize">12dp</item>
     </style>
 
     <style name="Clock_CustomTextView" parent="@android:style/Widget.TextView">
@@ -40,7 +40,7 @@
         <item name="android:layout_margin">1dp</item>
         <item name="android:background">#FFFFFF</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">18dp</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:background" tools:ignore="DuplicateDefinition"> @color/colorWeek</item>
     </style>

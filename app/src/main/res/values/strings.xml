@@ -13,6 +13,8 @@
 
     <string name="db_failure">서버 통신에 실패하였습니다.</string>
 
+    <string name="time">누적시간 </string>
+
     <!-- NFC Activity -->
     <string name="hello_nfc_please_touch_a_tag">hello ! Nfc Please touch a tag</string>
 </resources>
