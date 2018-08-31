@@ -132,7 +132,8 @@ public class SubjectActivity extends AppCompatActivity{
                     stSbjCategory = "%%";
                 }
 
-                stSbjName = "%" +edSbjName.getText().toString()+ "%";
+                stSbjName = "%" + edSbjName.getText().toString()+ "%";
+                stSbjDivision = "%" + stSbjDivision + "%";
 
                 Call<ResponseBody> call = service.subject_table(stSbjDivision,stSbjCategory,stSbjName);
                 call.enqueue(new Callback<ResponseBody>() {

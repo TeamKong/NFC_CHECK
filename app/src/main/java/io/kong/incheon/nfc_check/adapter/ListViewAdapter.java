@@ -309,7 +309,7 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
 
     private void insertPersonSubject() {
         RetrofitService insertService = retrofit.create(RetrofitService.class);
-        Call<ResponseBody> insertCall = insertService.person_subject(user_id, stName, stIndex, stProfessor, stDay);
+        Call<ResponseBody> insertCall = insertService.person_subject(user_id, stIndex);
 
         insertCall.enqueue(new Callback<ResponseBody>() {
             @Override

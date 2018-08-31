@@ -24,8 +24,7 @@ public interface RetrofitService {
                             @Query("user_name") String user_name, @Query("user_major") String user_major);
 
     @POST("person_subject")
-    Call<ResponseBody> person_subject(@Query("user_id") String user_id, @Query("sbj_name") String sbj_name, @Query("sbj_index") String sbj_index,
-                                      @Query("sbj_professor") String sbj_professor, @Query("sbj_day") String sbj_day);
+    Call<ResponseBody> person_subject(@Query("user_id") String user_id,@Query("sbj_index") String sbj_index);
 
     @GET("person_subjectTable")
     Call<ResponseBody> person_subjectTable(@Query("user_id") String user_id);
