@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,514 +7,539 @@
     tools:context=".activity.TimeTableActivity">
 
     <LinearLayout
+        android:id="@+id/layoutSubTable"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:background="#999999"
-            android:padding="1dp"
-            android:stretchColumns="1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <!--  Week Row  -->
-            <TableRow>
-
-                <TextView
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    style="@style/Custom_TextView"
-                    android:text="@string/week_mon"/>
-
-                <TextView
-                    style="@style/Custom_TextView"
-                    android:text="@string/week_tue" />
-
-                <TextView
-                    style="@style/Custom_TextView"
-                    android:text="@string/week_wed" />
-
-                <TextView
-                    style="@style/Custom_TextView"
-                    android:text="@string/week_thu" />
-
-                <TextView
-                    style="@style/Custom_TextView"
-                    android:text="@string/week_fri" />
-
-                <TextView
-                    style="@style/Custom_TextView"
-                    android:text="@string/week_sat" />
-            </TableRow>
-
-            <!--  9 O'Clock Row  -->
-            <TableRow>
-
-                <TextView
-                    style="@style/Clock_CustomTextView"
-                    android:text="9"/>
-
-                <TextView
-                    android:id="@+id/sub1_0"
-                    style="@style/Custom_TextView"/>
-
-                <TextView
-                    android:id="@+id/sub1_1"
-                    style="@style/Custom_TextView"/>
-
-                <TextView
-                    android:id="@+id/sub1_2"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub1_3"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub1_4"
-                    style="@style/Custom_TextView"/>
-
-                <TextView
-                    android:id="@+id/sub1_5"
-                    style="@style/Custom_TextView"/>
-            </TableRow>
-
-            <!--  10 O'Clock Row  -->
-            <TableRow>
-
-                <TextView
-                    style="@style/Clock_CustomTextView"
-                    android:text="10"/>
-
-                <TextView
-                    android:id="@+id/sub2_0"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub2_1"
-                    style="@style/Custom_TextView"/>
-
-                <TextView
-                    android:id="@+id/sub2_2"
-                    style="@style/Custom_TextView"/>
-
-                <TextView
-                    android:id="@+id/sub2_3"
-                    style="@style/Custom_TextView"/>
-
-                <TextView
-                    android:id="@+id/sub2_4"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub2_5"
-                    style="@style/Custom_TextView"/>
-            </TableRow>
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="학업시간표"
+            android:textSize="50dp"
+            android:textColor="@color/colorWeek"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutSubTable">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:background="@drawable/table_layout_background"
+                android:padding="1dp"
+                android:stretchColumns="1"
+                android:layout_weight="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!--  Week Row  -->
+                <TableRow>
+
+                    <TextView style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/MON"
+                        style="@style/Week_CustomTextView"
+                        android:text="@string/week_mon" />
+
+                    <TextView
+                        android:id="@+id/TUE"
+                        style="@style/Week_CustomTextView"
+                        android:text="@string/week_tue" />
+
+                    <TextView
+                        android:id="@+id/WED"
+                        style="@style/Week_CustomTextView"
+                        android:text="@string/week_wed" />
+
+                    <TextView
+                        android:id="@+id/THU"
+                        style="@style/Week_CustomTextView"
+                        android:text="@string/week_thu" />
+
+                    <TextView
+                        android:id="@+id/FRI"
+                        style="@style/Week_CustomTextView"
+                        android:text="@string/week_fri" />
+
+                    <TextView
+                        android:id="@+id/SAT"
+                        style="@style/Week_CustomTextView"
+                        android:text="@string/week_sat" />
+                </TableRow>
+
+                <!--  9 O'Clock Row  -->
+                <TableRow>
+
+                    <TextView
+                        style="@style/Clock_CustomTextView"
+                        android:text="9" />
+
+                    <TextView
+                        android:id="@+id/sub1_0"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub1_1"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub1_2"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub1_3"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub1_4"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub1_5"
+                        style="@style/Custom_TextView" />
+                </TableRow>
+
+                <!--  10 O'Clock Row  -->
+                <TableRow>
+
+                    <TextView
+                        style="@style/Clock_CustomTextView"
+                        android:text="10" />
+
+                    <TextView
+                        android:id="@+id/sub2_0"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub2_1"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub2_2"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub2_3"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub2_4"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub2_5"
+                        style="@style/Custom_TextView" />
+                </TableRow>
 
-            <!--  11 O'Clock Row  -->
-            <TableRow>
-
-                <TextView
-                    style="@style/Clock_CustomTextView"
-                    android:text="11" />
-
-                <TextView
-                    android:id="@+id/sub3_0"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub3_1"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub3_2"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub3_3"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub3_4"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub3_5"
-                    style="@style/Custom_TextView" />
-            </TableRow>
+                <!--  11 O'Clock Row  -->
+                <TableRow>
+
+                    <TextView
+                        style="@style/Clock_CustomTextView"
+                        android:text="11" />
+
+                    <TextView
+                        android:id="@+id/sub3_0"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub3_1"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub3_2"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub3_3"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub3_4"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub3_5"
+                        style="@style/Custom_TextView" />
+                </TableRow>
 
-            <!--  12 O'Clock Row  -->
-            <TableRow>
-
-                <TextView
-                    style="@style/Clock_CustomTextView"
-                    android:text="12"/>
-
-                <TextView
-                    android:id="@+id/sub4_0"
-                    style="@style/Custom_TextView"/>
-
-                <TextView
-                    android:id="@+id/sub4_1"
-                    style="@style/Custom_TextView"/>
-
-                <TextView
-                    android:id="@+id/sub4_2"
-                    style="@style/Custom_TextView"/>
-
-                <TextView
-                    android:id="@+id/sub4_3"
-                    style="@style/Custom_TextView"/>
-
-                <TextView
-                    android:id="@+id/sub4_4"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub4_5"
-                    style="@style/Custom_TextView"/>
-            </TableRow>
+                <!--  12 O'Clock Row  -->
+                <TableRow>
+
+                    <TextView
+                        style="@style/Clock_CustomTextView"
+                        android:text="12" />
+
+                    <TextView
+                        android:id="@+id/sub4_0"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub4_1"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub4_2"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub4_3"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub4_4"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub4_5"
+                        style="@style/Custom_TextView" />
+                </TableRow>
 
-            <!--  13 O'Clock Row  -->
-            <TableRow>
-
-                <TextView
-                    style="@style/Clock_CustomTextView"
-                    android:text="13" />
-
-                <TextView
-                    android:id="@+id/sub5_0"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub5_1"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub5_2"
-                    style="@style/Custom_TextView"/>
-
-                <TextView
-                    android:id="@+id/sub5_3"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub5_4"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub5_5"
-                    style="@style/Custom_TextView" />
-            </TableRow>
+                <!--  13 O'Clock Row  -->
+                <TableRow>
+
+                    <TextView
+                        style="@style/Clock_CustomTextView"
+                        android:text="13" />
+
+                    <TextView
+                        android:id="@+id/sub5_0"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub5_1"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub5_2"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub5_3"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub5_4"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub5_5"
+                        style="@style/Custom_TextView" />
+                </TableRow>
 
-            <!--  14 O'Clock Row  -->
-            <TableRow>
-
-                <TextView
-                    style="@style/Clock_CustomTextView"
-                    android:text="14" />
-
-                <TextView
-                    android:id="@+id/sub6_0"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub6_1"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub6_2"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub6_3"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub6_4"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub6_5"
-                    style="@style/Custom_TextView" />
-            </TableRow>
+                <!--  14 O'Clock Row  -->
+                <TableRow>
+
+                    <TextView
+                        style="@style/Clock_CustomTextView"
+                        android:text="14" />
+
+                    <TextView
+                        android:id="@+id/sub6_0"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub6_1"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub6_2"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub6_3"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub6_4"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub6_5"
+                        style="@style/Custom_TextView" />
+                </TableRow>
 
-            <!--  15 O'Clock Row  -->
-            <TableRow>
+                <!--  15 O'Clock Row  -->
+                <TableRow>
 
-                <TextView
-                    style="@style/Clock_CustomTextView"
-                    android:text="15" />
+                    <TextView
+                        style="@style/Clock_CustomTextView"
+                        android:text="15" />
 
-                <TextView
-                    android:id="@+id/sub7_0"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub7_0"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub7_1"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub7_1"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub7_2"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub7_2"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub7_3"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub7_3"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub7_4"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub7_4"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub7_5"
-                    style="@style/Custom_TextView" />
-            </TableRow>
+                    <TextView
+                        android:id="@+id/sub7_5"
+                        style="@style/Custom_TextView" />
+                </TableRow>
 
-            <!--  16 O'Clock Row  -->
-            <TableRow>
+                <!--  16 O'Clock Row  -->
+                <TableRow>
 
-                <TextView
-                    style="@style/Clock_CustomTextView"
-                    android:text="16" />
+                    <TextView
+                        style="@style/Clock_CustomTextView"
+                        android:text="16" />
 
-                <TextView
-                    android:id="@+id/sub8_0"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub8_0"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub8_1"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub8_1"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub8_2"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub8_2"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub8_3"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub8_3"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub8_4"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub8_4"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub8_5"
-                    style="@style/Custom_TextView" />
-            </TableRow>
+                    <TextView
+                        android:id="@+id/sub8_5"
+                        style="@style/Custom_TextView" />
+                </TableRow>
 
-            <!--  17 O'Clock Row  -->
-            <TableRow>
+                <!--  17 O'Clock Row  -->
+                <TableRow>
 
-                <TextView
-                    style="@style/Clock_CustomTextView"
-                    android:text="17" />
+                    <TextView
+                        style="@style/Clock_CustomTextView"
+                        android:text="17" />
 
-                <TextView
-                    android:id="@+id/sub9_0"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub9_0"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub9_1"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub9_1"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub9_2"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub9_2"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub9_3"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub9_3"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub9_4"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub9_4"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub9_5"
-                    style="@style/Custom_TextView" />
-            </TableRow>
+                    <TextView
+                        android:id="@+id/sub9_5"
+                        style="@style/Custom_TextView" />
+                </TableRow>
 
 
-            <!--  18 O'Clock Row  -->
-            <TableRow>
+                <!--  18 O'Clock Row  -->
+                <TableRow>
 
-                <TextView
-                    style="@style/Clock_CustomTextView"
-                    android:text="18" />
+                    <TextView
+                        style="@style/Clock_CustomTextView"
+                        android:text="18" />
 
-                <TextView
-                    android:id="@+id/sub10_0"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub10_0"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub10_1"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub10_1"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub10_2"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub10_2"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub10_3"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub10_3"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub10_4"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub10_4"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub10_5"
-                    style="@style/Custom_TextView" />
-            </TableRow>
+                    <TextView
+                        android:id="@+id/sub10_5"
+                        style="@style/Custom_TextView" />
+                </TableRow>
 
-            <!--  19 O'Clock Row  -->
-            <TableRow>
+                <!--  19 O'Clock Row  -->
+                <TableRow>
 
-                <TextView
-                    style="@style/Clock_CustomTextView"
-                    android:text="19" />
+                    <TextView
+                        style="@style/Clock_CustomTextView"
+                        android:text="19" />
 
-                <TextView
-                    android:id="@+id/sub11_0"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub11_0"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub11_1"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub11_1"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub11_2"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub11_2"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub11_3"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub11_3"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub11_4"
-                    style="@style/Custom_TextView" />
+                    <TextView
+                        android:id="@+id/sub11_4"
+                        style="@style/Custom_TextView" />
 
-                <TextView
-                    android:id="@+id/sub11_5"
-                    style="@style/Custom_TextView" />
-            </TableRow>
+                    <TextView
+                        android:id="@+id/sub11_5"
+                        style="@style/Custom_TextView" />
+                </TableRow>
 
-            <!--  20 O'Clock Row  -->
-            <TableRow>
+                <!--  20 O'Clock Row  -->
+                <TableRow>
 
-                <TextView
-                    style="@style/Clock_CustomTextView"
-                    android:text="20" />
-
-                <TextView
-                    android:id="@+id/sub12_0"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub12_1"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub12_2"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub12_3"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub12_4"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub12_5"
-                    style="@style/Custom_TextView" />
-            </TableRow>
-
-            <!--  21 O'Clock Row  -->
-            <TableRow>
-
-                <TextView
-                    style="@style/Clock_CustomTextView"
-                    android:text="21" />
-
-                <TextView
-                    android:id="@+id/sub13_0"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub13_1"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub13_2"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub13_3"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub13_4"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub13_5"
-                    style="@style/Custom_TextView" />
-            </TableRow>
-
-            <!--  22 O'Clock Row  -->
-            <TableRow>
-
-                <TextView
-                    style="@style/Clock_CustomTextView"
-                    android:text="22" />
-
-                <TextView
-                    android:id="@+id/sub14_0"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub14_1"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub14_2"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub14_3"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub14_4"
-                    style="@style/Custom_TextView" />
-
-                <TextView
-                    android:id="@+id/sub14_5"
-                    style="@style/Custom_TextView" />
-            </TableRow>
-
-        </TableLayout>
+                    <TextView
+                        style="@style/Clock_CustomTextView"
+                        android:text="20" />
+
+                    <TextView
+                        android:id="@+id/sub12_0"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub12_1"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub12_2"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub12_3"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub12_4"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub12_5"
+                        style="@style/Custom_TextView" />
+                </TableRow>
+
+                <!--  21 O'Clock Row  -->
+                <TableRow>
+
+                    <TextView
+                        style="@style/Clock_CustomTextView"
+                        android:text="21" />
+
+                    <TextView
+                        android:id="@+id/sub13_0"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub13_1"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub13_2"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub13_3"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub13_4"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub13_5"
+                        style="@style/Custom_TextView" />
+                </TableRow>
+
+                <!--  22 O'Clock Row  -->
+                <TableRow>
+
+                    <TextView
+                        style="@style/Clock_CustomTextView"
+                        android:text="22" />
+
+                    <TextView
+                        android:id="@+id/sub14_0"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub14_1"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub14_2"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub14_3"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub14_4"
+                        style="@style/Custom_TextView" />
+
+                    <TextView
+                        android:id="@+id/sub14_5"
+                        style="@style/Custom_TextView" />
+                </TableRow>
+
+            </TableLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="right">
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/btnFAB"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:backgroundTint="#FFFFFF"
-            android:src="@mipmap/ic_add_second"
-            android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
-            android:elevation="2dp"/>
-
+            android:layout_marginRight="10dp"
+            android:elevation="2dp"
+            android:src="@drawable/baseline_add"
+            app:backgroundTint="@color/colorWeek" />
     </LinearLayout>
-</ScrollView>
+</RelativeLayout>

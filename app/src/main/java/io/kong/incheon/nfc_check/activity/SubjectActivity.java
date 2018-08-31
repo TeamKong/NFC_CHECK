@@ -1,10 +1,13 @@
 package io.kong.incheon.nfc_check.activity;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,6 +17,8 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -73,6 +78,8 @@ public class SubjectActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FullScreenView fullScreenView = new FullScreenView();
+        fullScreenView.screenView(this);
         setContentView(R.layout.activity_subject);
 
         init();
@@ -125,7 +132,8 @@ public class SubjectActivity extends AppCompatActivity{
                     stSbjCategory = "%%";
                 }
 
-                stSbjName = "%" +edSbjName.getText().toString()+ "%";
+                stSbjName = "%" + edSbjName.getText().toString()+ "%";
+                stSbjDivision = "%" + stSbjDivision + "%";
 
                 Call<ResponseBody> call = service.subject_table(stSbjDivision,stSbjCategory,stSbjName);
                 call.enqueue(new Callback<ResponseBody>() {
@@ -139,9 +147,7 @@ public class SubjectActivity extends AppCompatActivity{
                                 try {
                                     JSONObject jsonObject = new JSONObject(result);
                                     JSONArray jsonArray = jsonObject.getJSONArray("subject_table");
-                                    if(mArrayList == null) {
-                                        mArrayList = new ArrayList<ListViewBtnItem>();
-                                    }
+                                    mArrayList = new ArrayList<ListViewBtnItem>();
 
                                     for(int i = 0; i < jsonArray.length(); i++) {
 
@@ -182,6 +188,12 @@ public class SubjectActivity extends AppCompatActivity{
         });
     }
 
+    @Override
+    protected void attachBaseContext(Context newBase){
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+
     protected void init() {
 
         subjectActivity = SubjectActivity.this;
@@ -200,5 +212,11 @@ public class SubjectActivity extends AppCompatActivity{
                 .build();
         service = retrofit.create(RetrofitService.class);
     }
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(SubjectActivity.this, TimeTableActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

@@ -1,68 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWeek"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-
+        android:layout_height="match_parent"
+        android:layout_weight="3"
         android:orientation="vertical"
-        >
+        android:gravity="center">
 
         <!--/* Incheon UNIN LOGO */-->
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/univ_logo"/>
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/icon" />
 
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="2"
-      >
-
-        <Button
-            android:id="@+id/btnCheck"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="출 석 체 크"/>
-
-        <Button
-            android:id="@+id/btnTimetable"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="학업시간표"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="2">
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="1.5"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnCheckList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="출 석 관 리"
-            android:layout_weight="1"/>
-
-        <Button
-            android:id="@+id/btnSetting"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="설 정"/>
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btnCheck"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:background="@drawable/attendancecheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btnTimetable"
+                    android:layout_width="150dp"
+                    android:layout_height="140dp"
+                    android:background="@drawable/timetablebutton" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btnCheckList"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:background="@drawable/attendancemanagement" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btnSetting"
+                    android:layout_width="150dp"
+                    android:layout_height="140dp"
+                    android:background="@drawable/settingbutton" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3.5"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_height="100dp"
+            android:layout_width="100dp"
+            android:src="@drawable/bottom_icon"/>
 
     </LinearLayout>
 
-    </LinearLayout>
+</LinearLayout>
