@@ -30,6 +30,6 @@ public interface RetrofitService {
     Call<ResponseBody> person_subjectTable(@Query("user_id") String user_id);
 
     @GET("person_subject/delete")
-    Call<ResponseBody> person_delete(@Query("user_id") String user_id, @Query("sbj_name") String sbj_name);
+    Call<ResponseBody> person_delete(@Query("user_id") String user_id, @Query("sbj_index") String sbj_index);
 
 }

@@ -190,6 +190,7 @@ public class TimeTableActivity extends AppCompatActivity {
 
                                 String stName = item.getString("sbj_name");
                                 String stDay = item.getString("sbj_day");
+                                String stIndex = item.getString("sbj_index");
 
                                 int pos = stDay.indexOf(",");
                                 dayArr = stDay.split(",");
@@ -197,12 +198,12 @@ public class TimeTableActivity extends AppCompatActivity {
                                 if (!Integer.toString(pos).equals("-1")) {
                                     String[] firDay = dayArr[0].split(" ");
                                     String[] secDay = dayArr[1].split(" ");
-                                    gridTable(firDay, stName);
-                                    gridTable(secDay, stName);
+                                    gridTable(firDay, stName, stIndex);
+                                    gridTable(secDay, stName, stIndex);
 
                                 } else {
                                     String[] singleDay = stDay.split(" ");
-                                    gridTable(singleDay, stName);
+                                    gridTable(singleDay, stName, stIndex);
                                 }
                             }
 
@@ -222,37 +223,37 @@ public class TimeTableActivity extends AppCompatActivity {
         });
     }
 
-    public void gridTable(String[] dayArr, String stName) {
+    public void gridTable(String[] dayArr, String stName, String stIndex) {
         int i;
         switch (dayArr[0]) {
             case "월":
                 i = 0;
-                gridTable2(dayArr, stName, i);
+                gridTable2(dayArr, stName, stIndex, i);
                 break;
             case "화":
                 i = 1;
-                gridTable2(dayArr, stName, i);
+                gridTable2(dayArr, stName, stIndex, i);
                 break;
             case "수":
                 i = 2;
-                gridTable2(dayArr, stName, i);
+                gridTable2(dayArr, stName, stIndex, i);
                 break;
             case "목":
                 i = 3;
-                gridTable2(dayArr, stName, i);
+                gridTable2(dayArr, stName, stIndex, i);
                 break;
             case "금":
                 i = 4;
-                gridTable2(dayArr, stName, i);
+                gridTable2(dayArr, stName, stIndex, i);
                 break;
             case "토":
                 i = 5;
-                gridTable2(dayArr, stName, i);
+                gridTable2(dayArr, stName, stIndex, i);
 
         }
     }
 
-    public void gridTable2(String[] dayArr, final String stName, int i) {
+    public void gridTable2(String[] dayArr, final String stName, final String stIndex, int i) {
         for (int x = 1; x < dayArr.length; x++) {
             for (int y = 1; y < 15; y++) {
                 if (dayArr[x].equals(Integer.toString(y))) {
@@ -266,7 +267,7 @@ public class TimeTableActivity extends AppCompatActivity {
                                     .setPositiveButton("삭제", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {
-                                            call = service.person_delete(user_id, stName);
+                                            call = service.person_delete(user_id, stIndex);
                                             call.enqueue(new Callback<ResponseBody>() {
                                                 @Override
                                                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
