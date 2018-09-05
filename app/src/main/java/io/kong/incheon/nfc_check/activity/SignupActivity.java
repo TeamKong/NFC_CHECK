@@ -37,7 +37,6 @@ public class SignupActivity extends AppCompatActivity {
     EditText edMajor;
 
     ArrayAdapter saUniversity;
-//    ArrayAdapter saGrade;
 
     Retrofit retrofit;
 
@@ -46,7 +45,6 @@ public class SignupActivity extends AppCompatActivity {
     String user_name;
     String user_university;
     String user_major;
-//    String user_grade;
 
 
     @Override
@@ -61,9 +59,6 @@ public class SignupActivity extends AppCompatActivity {
         saUniversity = ArrayAdapter.createFromResource(this, R.array.question, android.R.layout.simple_spinner_dropdown_item);
         sUniversity.setAdapter(saUniversity);
 
-//        saGrade = ArrayAdapter.createFromResource(this,R.array.grade, android.R.layout.simple_spinner_dropdown_item);
-//        sGrade.setAdapter(saGrade);
-
         sUniversity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?>  parent, View view, int position, long id) {
                 user_university = saUniversity.getItem(position).toString();
@@ -73,17 +68,6 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-//        sGrade.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-//                user_grade = saGrade.getItem(position).toString();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
 
         btnSummit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +96,6 @@ public class SignupActivity extends AppCompatActivity {
         edName = (EditText) findViewById(R.id.edName);
         edMajor = (EditText) findViewById(R.id.edMajor);
         sUniversity = (Spinner) findViewById(R.id.box_school);
-//        sGrade = (Spinner) findViewById(R.id.spiner_Grade);
 
     }
 

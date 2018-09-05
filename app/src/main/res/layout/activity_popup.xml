@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
     android:layout_height="400dp"
     android:orientation="vertical">
@@ -20,63 +19,63 @@
             android:background="@drawable/popupbackup_icon" />
     </LinearLayout>
     <!-- //end 타이틀바 -->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_weight="1"
         android:gravity="center"
+        android:orientation="vertical"
         android:background="@drawable/popupbackup">
-        <!-- Notice -->
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp">
-
-            <TextView
-                android:id="@+id/day_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="day"
-                android:textSize="25sp"
-                android:textColor="@color/textColor" />
-
-            <TextView
-                android:id="@+id/time_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="time"
-                android:textSize="35sp"
-                android:textColor="@color/textColor" />
-
-            <TextView
-                android:id="@+id/txtText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:textColor="@color/textColor" />
-
-        </LinearLayout>
-        <!-- Notice -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
-
-            <Button
-                android:layout_width="wrap_content"
+            <!-- Notice -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="mOnClose"
-                android:text="확인"
-                android:textColor="@color/textColor"
-                android:background="@drawable/popupbackup"
-                android:textSize="15sp" />
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <TextView
+                    android:id="@+id/day_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="day"
+                    android:textColor="@color/textColor"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/time_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="time"
+                    android:gravity="center"
+                    android:textColor="@color/textColor"
+                    android:textSize="35sp" />
+
+                <TextView
+                    android:id="@+id/txtText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/textColor"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="mOnClose"
+                    android:layout_gravity="center"
+                    android:text="확인"
+                    android:background="@drawable/popupbackup"
+                    android:textColor="@color/textColor"
+                    android:textSize="15sp" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

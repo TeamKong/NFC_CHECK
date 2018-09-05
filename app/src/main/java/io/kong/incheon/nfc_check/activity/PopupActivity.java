@@ -55,6 +55,8 @@ public class PopupActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup);
 
+        Toast.makeText(PopupActivity.this, "확인", Toast.LENGTH_SHORT).show();
+
         txtText = (TextView) findViewById(R.id.txtText);
 
         //시간 출력하기
