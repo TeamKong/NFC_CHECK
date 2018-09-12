@@ -6,11 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 import io.kong.incheon.nfc_check.R;
 import io.kong.incheon.nfc_check.service.BackPressCloseHandler;
+import io.kong.incheon.nfc_check.service.FullScreenView;
 
 public class FirstMenuActivity extends AppCompatActivity{
     public static Activity firstMenuActivity;

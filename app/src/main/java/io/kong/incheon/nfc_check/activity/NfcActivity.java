@@ -4,11 +4,16 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
+import android.nfc.tech.NdefFormatable;
+import android.nfc.tech.NfcF;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,12 +24,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
 
 import io.kong.incheon.nfc_check.R;
 import io.kong.incheon.nfc_check.item.NFCItem;
 import io.kong.incheon.nfc_check.item.TimeItem;
 import io.kong.incheon.nfc_check.item.UserItem;
+import io.kong.incheon.nfc_check.service.FullScreenView;
 import io.kong.incheon.nfc_check.service.RetrofitService;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -41,14 +50,17 @@ import static io.kong.incheon.nfc_check.service.RetrofitService.TAG_URL;
 public class NfcActivity extends Activity {
 
     static final String TAG = TimeTableActivity.class.getCanonicalName();
+    static final String ATTENDANCE_TAG = "attendance";
 
-    static TimeItem timeItem = new TimeItem();
+    static TimeItem timeItem;
     static long curSecond;
 
-
     private Retrofit retrofit;
+    JSONArray jsonArray;
 
     NFCItem nfcItem = new NFCItem();
+    Ndef ndefTag;
+    Tag tag;
 
     private NfcAdapter nfcAdapter;
     private PendingIntent pendingIntent;
@@ -66,11 +78,19 @@ public class NfcActivity extends Activity {
     String[] dbArrDay;
     String todayWeek;
     Calendar oCalendar;
+    String nowHour;
+    String nowMinute;
+    String period;
+    String attendance;
+
+    int nowhour;
+    int nowminute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FullScreenView fullScreenView = new FullScreenView();
+
         fullScreenView.screenView(this);
         setContentView(R.layout.activity_nfc);
         init();
@@ -81,6 +101,8 @@ public class NfcActivity extends Activity {
     }
 
     private void init() {
+
+        timeItem = new TimeItem();
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(TAG_URL)
@@ -99,6 +121,66 @@ public class NfcActivity extends Activity {
         tagUserName.setText(user_id);
         tagUserId.setText(user_name);
         tagUserMajor.setText(user_major);
+
+
+        oCalendar = Calendar.getInstance();
+        final String[] week = {"월", "화", "수", "목", "금", "토", "일"};
+        todayWeek = week[oCalendar.get(Calendar.DAY_OF_WEEK) - 2];
+        nowHour = new SimpleDateFormat("HH").format(new Date());
+        nowMinute = new SimpleDateFormat("mm").format(new Date());
+
+        nowhour = Integer.parseInt(nowHour);
+        nowminute = Integer.parseInt(nowMinute);
+
+        if (nowminute >= 50) {
+            nowhour = nowhour + 1;
+        }
+
+        switch (nowhour) {
+            case 9:
+                period = "1";
+                break;
+            case 10:
+                period = "2";
+                break;
+            case 11:
+                period = "3";
+                break;
+            case 12:
+                period = "4";
+                break;
+            case 13:
+                period = "5";
+                break;
+            case 14:
+                period = "6";
+                break;
+            case 15:
+                period = "7";
+                break;
+            case 16:
+                period = "8";
+                break;
+            case 17:
+                period = "9";
+                break;
+            case 18:
+                period = "10";
+                break;
+            case 19:
+                period = "11";
+                break;
+            case 20:
+                period = "12";
+                break;
+            case 21:
+                period = "13";
+                break;
+            case 22:
+                period = "14";
+                break;
+        }
+
     }
 
     @Override
@@ -117,8 +199,21 @@ public class NfcActivity extends Activity {
     @Override
     protected void onNewIntent(final Intent intent) {
         super.onNewIntent(intent);
-        final Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        final Ndef ndefTag = Ndef.get(tag);
+        setIntent(intent);
+        tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+
+        if(NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
+            tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    checkNFCStatus(intent);
+                    handler.postDelayed(this, 1000);
+                }
+            }, 1000);
+        }
 
 
         if (tag != null) {
@@ -127,30 +222,25 @@ public class NfcActivity extends Activity {
             Log.i("curSecond", "" + curSecond);
 
             byte[] tagId = tag.getId();
-            tagDesc.setText("Tag ID: " + toHexString(tagId));
             tagNum = toHexString(tagId);
             nfcItem.setTagNum(toHexString(tagId));
-
-            oCalendar = Calendar.getInstance();
-            final String[] week = {"월", "화", "수", "목", "금", "토", "일"};
-            todayWeek = week[oCalendar.get(Calendar.DAY_OF_WEEK) - 2];
-
+            tagDesc.setText("출석체크 중에 스마트폰 사용시 출석에 불이익이 생길 수 있습니다.");
 
             RetrofitService service = retrofit.create(RetrofitService.class);
             Call<ResponseBody> call = service.NFC_check(toHexString(tag.getId()), user_id);
 
-            call.enqueue(new Callback<ResponseBody>() {
+           /* call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (response.isSuccessful()) {
                         try {
                             String result = response.body().string();
-                            if (!result.equals("[]")) {
-                                try {
-                                    JSONObject jsonObject = new JSONObject(result);
-                                    JSONArray jsonArray = jsonObject.getJSONArray("NFC_check");
-
+                            try {
+                                JSONObject jsonObject = new JSONObject(result);
+                                jsonArray = jsonObject.getJSONArray("NFC_check");
+                                if (jsonArray.length() != 0) {
                                     for (int i = 0; i < jsonArray.length(); i++) {
+
                                         JSONObject item = jsonArray.getJSONObject(i);
 
                                         dbDay = item.getString("sbj_day");
@@ -159,31 +249,35 @@ public class NfcActivity extends Activity {
                                         dbArrDay = dbDay.split(",");
 
                                         if (!Integer.toString(pos).equals("-1")) {
+
                                             String[] firDay = dbArrDay[0].split(" ");
                                             String[] secDay = dbArrDay[1].split(" ");
 
                                             if (firDay[0].equals(todayWeek)) {
-                                                CallPopUpActivity(intent, ndefTag);
+                                                CallPopUpActivity(intent, tag, firDay);
                                             } else if (secDay[0].equals(todayWeek)) {
-                                                CallPopUpActivity(intent, ndefTag);
+                                                CallPopUpActivity(intent, tag, secDay);
                                             } else {
-                                                Toast.makeText(NfcActivity.this, "오늘 수업 없음", Toast.LENGTH_SHORT).show();
+                                                tagDesc.setText("금일 해당강의실에서의 수업이 없습니다.");
                                             }
+
                                         } else {
+
                                             String[] singleDay = dbDay.split(" ");
-                                            if (singleDay.equals(todayWeek)) {
-                                                CallPopUpActivity(intent, ndefTag);
+
+                                            if (singleDay[0].equals(todayWeek)) {
+                                                CallPopUpActivity(intent, tag, singleDay);
                                             } else {
-                                                Toast.makeText(NfcActivity.this, "오늘 수업 없음", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(NfcActivity.this, "금일 해당강의실에서의 수업이 없습니다.", Toast.LENGTH_SHORT).show();
                                             }
                                         }
 
                                     }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+                                } else {
+                                    Toast.makeText(NfcActivity.this, "해당 강의실에서 수강중인 과목이 없습니다.", Toast.LENGTH_SHORT).show();
                                 }
-                            } else {
-                                Toast.makeText(NfcActivity.this, "없음", Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -198,7 +292,7 @@ public class NfcActivity extends Activity {
 
                 }
             });
-
+*/
 
         }
     }
@@ -214,23 +308,115 @@ public class NfcActivity extends Activity {
         return sb.toString();
     }
 
-    private void CallPopUpActivity(Intent intent, Ndef ndefTag) {
+
+    public void checkNFCStatus(Intent intent) {
         try {
-            ndefTag.connect();
-
-
-            while (ndefTag.isConnected()) {
+            if(tag != null) {
+                Ndef ndefTag = Ndef.get(tag);
+                if (ndefTag == null && !ndefTag.isConnected()) {
+                    tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+                    ndefTag = Ndef.get(tag);
+                }
+                ndefTag.connect();
+                if(ndefTag.isConnected()) {
+                    Log.d("network", "NFC Connected");
+                } else {
+                    Log.d("network", "NFC disconnected");
+                }
+                ndefTag.close();
             }
-
-            ndefTag.close();
-            Log.i("Second", ": connecting exit.");
-
-            Intent intent2 = new Intent(NfcActivity.this, PopupActivity.class);
-            intent.putExtra("NFC Data", "NFC DISCONNECTED");
-            startActivityForResult(intent2, 2);
-
         } catch (IOException e) {
-            Log.e(TAG, e.toString());
+            e.printStackTrace();
+            Ndef ndefTag = Ndef.get(tag);
+            if (ndefTag.isConnected()) {
+                tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+            }
+            Log.d("tag","--------------------------"+ String.valueOf(tag)+"--------------------------");
+            Log.d("network", "--------------NFC disconnedted---------------");
+        }
+    }
+
+    private void CallPopUpActivity(final Intent intent, final Tag tag, String[] dbArrDay) {
+        boolean periodCheck = true;
+        boolean test = true;
+
+        ndefTag = Ndef.get(tag);
+        for (int x = 1; x < dbArrDay.length; x++) {
+            if (periodCheck) {
+                if (dbArrDay[x].equals(period) && nowminute <= 10) {
+                    attendance = "지각";
+
+
+                    try {
+                        ndefTag.connect();
+
+                        while (ndefTag.isConnected()) {
+                            try {
+                                Thread.sleep(3000000);
+                                if (ndefTag == null) {
+                                    Thread.sleep(0);
+                                    ndefTag.close();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        if (!ndefTag.isConnected()) {
+                            Log.i("Second", ": connecting exit.");
+                            Intent intent2 = new Intent(NfcActivity.this, PopupActivity.class);
+                            intent.putExtra("NFC Data", "NFC DISCONNECTED");
+                            intent2.putExtra(ATTENDANCE_TAG, attendance);
+                            startActivityForResult(intent2, 2);
+
+                        }
+
+
+                    } catch (IOException e) {
+                        Log.e(TAG, e.toString());
+                    }
+
+                } else if (dbArrDay[x].equals(period)) {
+                    attendance = "출석";
+                    try {
+                        ndefTag.connect();
+
+
+                        if (ndefTag.isConnected()) {
+                            while (test) {
+                                Log.d(TAG, "connected");
+                                if (!ndefTag.isConnected()) {
+                                    test = false;
+                                } else if (!test && ndefTag.isConnected()) {
+                                    ndefTag.connect();
+                                } else if (!test && !ndefTag.isConnected()) {
+                                    ndefTag.close();
+                                }
+                            }
+                        }
+
+                        if (!ndefTag.isConnected()) {
+                            Log.i("Second", ": connecting exit.");
+                            Intent intent2 = new Intent(NfcActivity.this, PopupActivity.class);
+                            intent.putExtra("NFC Data", "NFC DISCONNECTED");
+                            intent2.putExtra(ATTENDANCE_TAG, attendance);
+                            startActivityForResult(intent2, 2);
+
+                        }
+
+
+                    } catch (IOException e) {
+                        Log.e(TAG, e.toString());
+                    }
+                } else {
+                    if (dbArrDay.length == x) {
+                        periodCheck = false;
+                    } else {
+                        Toast.makeText(NfcActivity.this, "현재시간에 수강중인 과목이 없습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
         }
     }
 }
+

@@ -24,6 +24,7 @@ import java.util.Calendar;
 
 import io.kong.incheon.nfc_check.R;
 import io.kong.incheon.nfc_check.item.UserItem;
+import io.kong.incheon.nfc_check.service.FullScreenView;
 import io.kong.incheon.nfc_check.service.RetrofitService;
 import okhttp3.ResponseBody;
 import retrofit2.Call;

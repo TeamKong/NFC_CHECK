@@ -18,6 +18,7 @@ import java.util.Date;
 
 import io.kong.incheon.nfc_check.R;
 
+import static io.kong.incheon.nfc_check.activity.NfcActivity.ATTENDANCE_TAG;
 import static io.kong.incheon.nfc_check.activity.NfcActivity.timeItem;
 
 public class PopupActivity extends Activity {
@@ -48,6 +49,8 @@ public class PopupActivity extends Activity {
 
     long first = System.currentTimeMillis();
 
+    String attendance;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +58,10 @@ public class PopupActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup);
 
-        Toast.makeText(PopupActivity.this, "확인", Toast.LENGTH_SHORT).show();
+        Intent intent = getIntent();
+        attendance = intent.getStringExtra(ATTENDANCE_TAG);
+
+        Toast.makeText(PopupActivity.this, attendance, Toast.LENGTH_SHORT).show();
 
         txtText = (TextView) findViewById(R.id.txtText);
 
@@ -79,11 +85,11 @@ public class PopupActivity extends Activity {
             Log.i("first And Second : ", "" + first + "," + timeItem.getSecondTime() + ", TimeRiver: " + TimeRiver + ", Minus:" + String.valueOf(first - timeItem.getSecondTime()));
 
             if (TimeRiver < 60) {
-                txtText.setText(R.string.time + TimeRiver + "초가 지난 뒤 NFC TAG 접촉을 해제");
+                txtText.setText(TimeRiver + "초가 지난 뒤 NFC TAG 접촉을 해제");
             } else if (TimeRiver % 60 == 0) {
-                txtText.setText(R.string.time + TimeRiver / 60 + "분이 지난 뒤 NFC TAG 접촉을 해제");
+                txtText.setText(TimeRiver / 60 + "분이 지난 뒤 NFC TAG 접촉을 해제");
             } else if (TimeRiver >= 60) {
-                txtText.setText(R.string.time + TimeRiver / 60 + "분 " + TimeRiver % 60 + "초가 지난 뒤 NFC TAG 접촉을 해제");
+                txtText.setText(TimeRiver / 60 + "분 " + TimeRiver % 60 + "초가 지난 뒤 NFC TAG 접촉을 해제");
             }
         }
     }

@@ -15,9 +15,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.List;
 
 import io.kong.incheon.nfc_check.item.UserItem;
+import io.kong.incheon.nfc_check.service.FullScreenView;
 import io.kong.incheon.nfc_check.service.RetrofitService;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -63,12 +63,12 @@ public class SplashActivity extends Activity {
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                     if (response.isSuccessful()) {
-                        if (response.body().toString() != "[]") {
+                        try {
+                            String result = response.body().string();
                             try {
-                                String result = response.body().string();
-                                try {
-                                    JSONObject jsonObject = new JSONObject(result);
-                                    JSONArray jsonArray = jsonObject.getJSONArray("user_table");
+                                JSONObject jsonObject = new JSONObject(result);
+                                JSONArray jsonArray = jsonObject.getJSONArray("user_table");
+                                if (jsonArray.length() != 0) {
 
                                     for (int i = 0; i < jsonArray.length(); i++) {
                                         JSONObject item = jsonArray.getJSONObject(i);
@@ -76,23 +76,26 @@ public class SplashActivity extends Activity {
                                         userItem.setUser_name(item.getString("user_name"));
                                         userItem.setUser_major(item.getString("user_major"));
                                     }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+
+                                    userItem.setStid(sId);
+                                    userItem.setStPass(sPw);
+                                    Toast.makeText(SplashActivity.this, userItem.getUser_name() + "님 환영합니다.", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(SplashActivity.this, FirstMenuActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Toast.makeText(SplashActivity.this, "Error", Toast.LENGTH_SHORT).show();
                                 }
-                            } catch (IOException e) {
+
+                            } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            userItem.setStid(sId);
-                            userItem.setStPass(sPw);
-                            Toast.makeText(SplashActivity.this, userItem.getUser_name() + "님 환영합니다.", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(SplashActivity.this, FirstMenuActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(SplashActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
+
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {

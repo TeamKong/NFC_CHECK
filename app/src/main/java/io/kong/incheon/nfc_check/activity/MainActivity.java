@@ -12,6 +12,7 @@ import android.widget.EditText;
 
 import io.kong.incheon.nfc_check.R;
 import io.kong.incheon.nfc_check.item.UserItem;
+import io.kong.incheon.nfc_check.service.FullScreenView;
 import io.kong.incheon.nfc_check.service.RetrofitService;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -21,6 +22,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.widget.Toast;
+
 import com.tsengvn.typekit.TypekitContextWrapper;
 
 import org.json.JSONArray;
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     static UserItem userItem;
 
     @Override
-    protected void attachBaseContext(Context newBase){
+    protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
     }
 
@@ -80,37 +82,36 @@ public class MainActivity extends AppCompatActivity {
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                                 if (response.isSuccessful()) {
-                                    if (response.body().toString() != "[]") {
-
+                                    try {
+                                        String result = response.body().string();
                                         try {
-                                            String result = response.body().string();
-                                            try {
-                                                JSONObject jsonObject = new JSONObject(result);
-                                                JSONArray jsonArray = jsonObject.getJSONArray("user_table");
+                                            JSONObject jsonObject = new JSONObject(result);
+                                            JSONArray jsonArray = jsonObject.getJSONArray("user_table");
 
+                                            if (jsonArray.length() != 0) {
                                                 for (int i = 0; i < jsonArray.length(); i++) {
                                                     JSONObject item = jsonArray.getJSONObject(i);
 
                                                     userItem.setUser_name(item.getString("user_name"));
                                                     userItem.setUser_major(item.getString("user_major"));
                                                 }
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
+                                                userItem.setStid(sId);
+                                                userItem.setStPass(sPw);
+                                                Toast.makeText(MainActivity.this, userItem.getUser_name() + "님 환영합니다.", Toast.LENGTH_SHORT).show();
+                                                if (autologin.isChecked()) {
+                                                    save();
+                                                }
+                                                Intent intent = new Intent(MainActivity.this, FirstMenuActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            } else {
+                                                Toast.makeText(MainActivity.this, "아이디 및 패스워드를 확인해주세요.", Toast.LENGTH_SHORT).show();
                                             }
-                                        } catch (IOException e) {
+                                        } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
-                                        userItem.setStid(sId);
-                                        userItem.setStPass(sPw);
-                                        Toast.makeText(MainActivity.this, userItem.getUser_name() + "님 환영합니다.", Toast.LENGTH_SHORT).show();
-                                        if (autologin.isChecked()) {
-                                            save();
-                                        }
-                                        Intent intent = new Intent(MainActivity.this, FirstMenuActivity.class);
-                                        startActivity(intent);
-                                        finish();
-                                    } else {
-                                        Toast.makeText(MainActivity.this, "아이디 및 패스워드를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
                                     }
                                 }
                             }

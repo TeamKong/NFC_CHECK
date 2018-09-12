@@ -281,10 +281,11 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
     }
 
     public void overlapSearchTest(String[] DBdayArr, String[] STdayArr, int i) {
+        int intJson = jsonArray.length() - 1;
         Loop:
         for (int x = 1; x < DBdayArr.length; x++) {
             for (int y = 1; y < STdayArr.length; y++) {
-                if (i == jsonArray.length()) {
+                if (i == intJson) {
                     if (DBdayArr[x].equals(STdayArr[y])) {
                         doubleCheck = false;
                         Toast.makeText(context.getApplicationContext(), "시간이 중복됩니다.", Toast.LENGTH_SHORT).show();
