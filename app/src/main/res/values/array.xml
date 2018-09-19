@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="question">
+        <item>인천대학교</item>
+    </string-array>
+
+    <string-array name="grade">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="division">
+        <item>전체</item>
+        <item>건설환경공학</item>
+        <item>경영학</item>
+        <item>교양</item>
+        <item>국어국문학</item>
+        <item>기계공학</item>
+        <item>독어독문학</item>
+        <item>디자인학</item>
+        <item>임베디드시스템공학</item>
+        <item>정보통신공학</item>
+        <item>컴퓨터공학</item>
+    </string-array>
+
+    <string-array name="category">
+        <item>전체</item>
+        <item>교선</item>
+        <item>교필</item>
+        <item>교직</item>
+        <item>전선</item>
+        <item>전기</item>
+        <item>전필</item>
+        <item>기과</item>
+        <item>INU핵심자기주도</item>
+        <item>INU핵심창의융합</item>
+        <item>INU핵심글로컬</item>
+    </string-array>
+
+    <string-array name="category_culture">
+        <item>전체</item>
+        <item>교선</item>
+        <item>교필</item>
+        <item>교직</item>
+        <item>INU핵심자기주도</item>
+        <item>INU핵심창의융합</item>
+        <item>INU핵심글로컬</item>
+    </string-array>
+    
+    <string-array name="category_major">
+        <item>전체</item>
+        <item>교필</item>
+        <item>전선</item>
+        <item>전기</item>
+        <item>전필</item>
+        <item>기과</item>
+    </string-array>
+</resources>
