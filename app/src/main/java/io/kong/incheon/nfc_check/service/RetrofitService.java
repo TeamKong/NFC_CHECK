@@ -31,4 +31,8 @@ public interface RetrofitService {
     @GET("NFC_check")
     Call<ResponseBody> NFC_check(@Query("NFC_tag") String nfc_tag, @Query("user_id") String user_id);
 
+    @POST("attendance_check")
+    Call<ResponseBody> attendance_check(@Query("user_id") String user_id, @Query("sbj_index") String sbj_index, @Query("attendance_day") String attendance_day,
+                                       @Query("attendance_time") String attendance_time, @Query("attendance_check") String attendance_check);
+
 }

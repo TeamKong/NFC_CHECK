@@ -137,13 +137,15 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
                                         }
                                         for (int j = 0; j < jsonArray.length(); j++) {
 
-                                            item = jsonArray.getJSONObject(j);
-                                            getDoubleCheck[j] = item.getString("sbj_name");
-                                            if (getDoubleCheck[j].equals(stName)) {
-                                                Toast.makeText(context.getApplicationContext(), "같은 과목은 시간표에 입력이 불가합니다.", Toast.LENGTH_SHORT).show();
-                                                doubleCheck = false;
+                                            if (doubleCheck) {
+                                                item = jsonArray.getJSONObject(j);
+                                                getDoubleCheck = new String[jsonArray.length()];
+                                                getDoubleCheck[j] = item.getString("sbj_name");
+                                                if (getDoubleCheck[j].equals(stName)) {
+                                                    Toast.makeText(context.getApplicationContext(), "같은 과목은 시간표에 입력이 불가합니다.", Toast.LENGTH_SHORT).show();
+                                                    doubleCheck = false;
+                                                }
                                             }
-
                                         }
 
                                         for (int i = 0; i < jsonArray.length(); i++) {

@@ -51,6 +51,10 @@ public class NfcActivity extends Activity {
 
     static final String TAG = TimeTableActivity.class.getCanonicalName();
     static final String ATTENDANCE_TAG = "attendance";
+    static final String ATTENDANCE_DAY = "day";
+    static final String ATTENDANCE_TIME = "time";
+    static final String ATTENDANCE_INDEX = "sbj_index";
+
 
     static TimeItem timeItem;
     static long curSecond;
@@ -82,6 +86,7 @@ public class NfcActivity extends Activity {
     String nowMinute;
     String period;
     String attendance;
+    String sbj_index;
 
     int nowhour;
     int nowminute;
@@ -202,18 +207,6 @@ public class NfcActivity extends Activity {
         setIntent(intent);
         tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 
-        if(NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
-            tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    checkNFCStatus(intent);
-                    handler.postDelayed(this, 1000);
-                }
-            }, 1000);
-        }
 
 
         if (tag != null) {
@@ -229,7 +222,7 @@ public class NfcActivity extends Activity {
             RetrofitService service = retrofit.create(RetrofitService.class);
             Call<ResponseBody> call = service.NFC_check(toHexString(tag.getId()), user_id);
 
-           /* call.enqueue(new Callback<ResponseBody>() {
+            call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (response.isSuccessful()) {
@@ -244,6 +237,7 @@ public class NfcActivity extends Activity {
                                         JSONObject item = jsonArray.getJSONObject(i);
 
                                         dbDay = item.getString("sbj_day");
+                                        sbj_index = item.getString("sbj_index");
 
                                         int pos = dbDay.indexOf(",");
                                         dbArrDay = dbDay.split(",");
@@ -292,7 +286,6 @@ public class NfcActivity extends Activity {
 
                 }
             });
-*/
 
         }
     }
@@ -308,37 +301,8 @@ public class NfcActivity extends Activity {
         return sb.toString();
     }
 
-
-    public void checkNFCStatus(Intent intent) {
-        try {
-            if(tag != null) {
-                Ndef ndefTag = Ndef.get(tag);
-                if (ndefTag == null && !ndefTag.isConnected()) {
-                    tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-                    ndefTag = Ndef.get(tag);
-                }
-                ndefTag.connect();
-                if(ndefTag.isConnected()) {
-                    Log.d("network", "NFC Connected");
-                } else {
-                    Log.d("network", "NFC disconnected");
-                }
-                ndefTag.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Ndef ndefTag = Ndef.get(tag);
-            if (ndefTag.isConnected()) {
-                tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            }
-            Log.d("tag","--------------------------"+ String.valueOf(tag)+"--------------------------");
-            Log.d("network", "--------------NFC disconnedted---------------");
-        }
-    }
-
     private void CallPopUpActivity(final Intent intent, final Tag tag, String[] dbArrDay) {
         boolean periodCheck = true;
-        boolean test = true;
 
         ndefTag = Ndef.get(tag);
         for (int x = 1; x < dbArrDay.length; x++) {
@@ -350,27 +314,17 @@ public class NfcActivity extends Activity {
                     try {
                         ndefTag.connect();
 
-                        while (ndefTag.isConnected()) {
-                            try {
-                                Thread.sleep(3000000);
-                                if (ndefTag == null) {
-                                    Thread.sleep(0);
-                                    ndefTag.close();
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        if (!ndefTag.isConnected()) {
+                        if (ndefTag.isConnected()) {
                             Log.i("Second", ": connecting exit.");
                             Intent intent2 = new Intent(NfcActivity.this, PopupActivity.class);
                             intent.putExtra("NFC Data", "NFC DISCONNECTED");
+                            intent2.putExtra(ATTENDANCE_DAY, dbArrDay[0]);
+                            intent2.putExtra(ATTENDANCE_TIME, new SimpleDateFormat("HH:mm").format(new Date()));
                             intent2.putExtra(ATTENDANCE_TAG, attendance);
+                            intent2.putExtra(ATTENDANCE_INDEX, sbj_index);
                             startActivityForResult(intent2, 2);
 
                         }
-
 
                     } catch (IOException e) {
                         Log.e(TAG, e.toString());
@@ -381,30 +335,13 @@ public class NfcActivity extends Activity {
                     try {
                         ndefTag.connect();
 
-
                         if (ndefTag.isConnected()) {
-                            while (test) {
-                                Log.d(TAG, "connected");
-                                if (!ndefTag.isConnected()) {
-                                    test = false;
-                                } else if (!test && ndefTag.isConnected()) {
-                                    ndefTag.connect();
-                                } else if (!test && !ndefTag.isConnected()) {
-                                    ndefTag.close();
-                                }
-                            }
-                        }
-
-                        if (!ndefTag.isConnected()) {
                             Log.i("Second", ": connecting exit.");
                             Intent intent2 = new Intent(NfcActivity.this, PopupActivity.class);
                             intent.putExtra("NFC Data", "NFC DISCONNECTED");
                             intent2.putExtra(ATTENDANCE_TAG, attendance);
                             startActivityForResult(intent2, 2);
-
                         }
-
-
                     } catch (IOException e) {
                         Log.e(TAG, e.toString());
                     }

@@ -13,13 +13,27 @@ import android.widget.Toast;
 
 import com.tsengvn.typekit.TypekitContextWrapper;
 
+import org.json.JSONArray;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import io.kong.incheon.nfc_check.R;
+import io.kong.incheon.nfc_check.item.UserItem;
+import io.kong.incheon.nfc_check.service.RetrofitService;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
+import static io.kong.incheon.nfc_check.activity.NfcActivity.ATTENDANCE_DAY;
+import static io.kong.incheon.nfc_check.activity.NfcActivity.ATTENDANCE_INDEX;
 import static io.kong.incheon.nfc_check.activity.NfcActivity.ATTENDANCE_TAG;
+import static io.kong.incheon.nfc_check.activity.NfcActivity.ATTENDANCE_TIME;
 import static io.kong.incheon.nfc_check.activity.NfcActivity.timeItem;
+import static io.kong.incheon.nfc_check.service.RetrofitService.TAG_URL;
 
 public class PopupActivity extends Activity {
 
@@ -52,14 +66,64 @@ public class PopupActivity extends Activity {
     String attendance;
 
 
+    private Retrofit retrofit;
+    JSONArray jsonArray;
+    UserItem userItem;
+
+    String user_id;
+    String attendance_day;
+    String attendance_time;
+    String sbj_index;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup);
 
+        init();
+
+        RetrofitService service = retrofit.create(RetrofitService.class);
+        Call<ResponseBody> call = service.attendance_check(user_id, sbj_index, attendance_day, attendance_time, attendance);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    txtText.setText(attendance + "으로 완료되었습니다.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
+
+        CheckTime = (first - timeItem.getSecondTime()) / 1000;
+        TimeRiver = TimeRiver + CheckTime; //누적시간 확인
+
+        Log.i("minute: ",formatMinute+", day : "+formatDay);
+
+    }
+
+    private void init() {
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(TAG_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        user_id = userItem.getStid();
+
         Intent intent = getIntent();
         attendance = intent.getStringExtra(ATTENDANCE_TAG);
+        attendance_day = intent.getStringExtra(ATTENDANCE_DAY);
+        attendance_time = intent.getStringExtra(ATTENDANCE_TIME);
+        sbj_index = intent.getStringExtra(ATTENDANCE_INDEX);
+
 
         Toast.makeText(PopupActivity.this, attendance, Toast.LENGTH_SHORT).show();
 
@@ -72,26 +136,6 @@ public class PopupActivity extends Activity {
         day_txt.setText(formatDate);
         time_txt.setText(formatTime);
 
-        CheckTime = (first - timeItem.getSecondTime()) / 1000;
-        TimeRiver = TimeRiver + CheckTime; //누적시간 확인
-
-        Log.i("minute: ",formatMinute+", day : "+formatDay);
-
-        if (formatMinute == "45") {
-            Toast.makeText(PopupActivity.this, "수업이 종료되었습니다. 총 누적시간은 " + TimeRiver + "분 입니다.", Toast.LENGTH_SHORT).show();
-            TimeRiver = 0;
-        }
-        else if(formatMinute != "45") {
-            Log.i("first And Second : ", "" + first + "," + timeItem.getSecondTime() + ", TimeRiver: " + TimeRiver + ", Minus:" + String.valueOf(first - timeItem.getSecondTime()));
-
-            if (TimeRiver < 60) {
-                txtText.setText(TimeRiver + "초가 지난 뒤 NFC TAG 접촉을 해제");
-            } else if (TimeRiver % 60 == 0) {
-                txtText.setText(TimeRiver / 60 + "분이 지난 뒤 NFC TAG 접촉을 해제");
-            } else if (TimeRiver >= 60) {
-                txtText.setText(TimeRiver / 60 + "분 " + TimeRiver % 60 + "초가 지난 뒤 NFC TAG 접촉을 해제");
-            }
-        }
     }
 
     @Override
