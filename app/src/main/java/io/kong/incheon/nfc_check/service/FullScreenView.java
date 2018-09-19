@@ -1,4 +1,4 @@
-package io.kong.incheon.nfc_check.activity;
+package io.kong.incheon.nfc_check.service;
 
 import android.app.Activity;
 import android.content.Context;

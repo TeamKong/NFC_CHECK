@@ -1,13 +1,9 @@
 package io.kong.incheon.nfc_check.service;
 
-import java.util.List;
-
-import io.kong.incheon.nfc_check.item.UserItem;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RetrofitService {
@@ -31,5 +27,12 @@ public interface RetrofitService {
 
     @GET("person_subject/delete")
     Call<ResponseBody> person_delete(@Query("user_id") String user_id, @Query("sbj_index") String sbj_index);
+
+    @GET("NFC_check")
+    Call<ResponseBody> NFC_check(@Query("NFC_tag") String nfc_tag, @Query("user_id") String user_id);
+
+    @POST("attendance_check")
+    Call<ResponseBody> attendance_check(@Query("user_id") String user_id, @Query("sbj_index") String sbj_index, @Query("attendance_day") String attendance_day,
+                                       @Query("attendance_time") String attendance_time, @Query("attendance_check") String attendance_check);
 
 }

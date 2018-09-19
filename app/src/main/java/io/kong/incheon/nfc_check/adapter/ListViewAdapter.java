@@ -137,13 +137,15 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
                                         }
                                         for (int j = 0; j < jsonArray.length(); j++) {
 
-                                            item = jsonArray.getJSONObject(j);
-                                            getDoubleCheck[j] = item.getString("sbj_name");
-                                            if (getDoubleCheck[j].equals(stName)) {
-                                                Toast.makeText(context.getApplicationContext(), "같은 과목은 시간표에 입력이 불가합니다.", Toast.LENGTH_SHORT).show();
-                                                doubleCheck = false;
+                                            if (doubleCheck) {
+                                                item = jsonArray.getJSONObject(j);
+                                                getDoubleCheck = new String[jsonArray.length()];
+                                                getDoubleCheck[j] = item.getString("sbj_name");
+                                                if (getDoubleCheck[j].equals(stName)) {
+                                                    Toast.makeText(context.getApplicationContext(), "같은 과목은 시간표에 입력이 불가합니다.", Toast.LENGTH_SHORT).show();
+                                                    doubleCheck = false;
+                                                }
                                             }
-
                                         }
 
                                         for (int i = 0; i < jsonArray.length(); i++) {
@@ -281,10 +283,11 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
     }
 
     public void overlapSearchTest(String[] DBdayArr, String[] STdayArr, int i) {
+        int intJson = jsonArray.length() - 1;
         Loop:
         for (int x = 1; x < DBdayArr.length; x++) {
             for (int y = 1; y < STdayArr.length; y++) {
-                if (i == jsonArray.length()) {
+                if (i == intJson) {
                     if (DBdayArr[x].equals(STdayArr[y])) {
                         doubleCheck = false;
                         Toast.makeText(context.getApplicationContext(), "시간이 중복됩니다.", Toast.LENGTH_SHORT).show();
